@@ -75,6 +75,13 @@ draft with typed placeholders (`[name of client]`, `[amount in EUR]`,
 `[date DD.MM.YYYY]`) over a question loop. Placeholders for personal data stay
 placeholders — re-identification happens in the user's browser on export.
 
+A typed placeholder means *nobody knows this yet*. It is **not** the same as a
+party token (`[PARTY_NAME_1]`), which means *this party is on the case and the
+platform substitutes them at export*. Use the party's token when the party exists;
+type a placeholder only for a genuinely unknown fact.
+`references/drafting-and-export.md` has the token table and the export path — and
+the rule that the document is produced in Relex, never in this chat.
+
 ## Fully-written-out rule
 
 Skeletons are not deliverables. Bullet stubs, half-sentences, empty clause

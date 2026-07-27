@@ -1,7 +1,7 @@
 {
   "name": "relex-legal",
   "displayName": "Relex Legal (MCP)",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Drive Relex legal cases from any MCP client over a PII-safe API.",
   "author": {
     "name": "Relex",

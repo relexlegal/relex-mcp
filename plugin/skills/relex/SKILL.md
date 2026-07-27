@@ -46,6 +46,9 @@ policy you have to trust. Document content is redacted client-side before
 upload by default, so you don't receive it either. Therefore:
 
 - **Never** ask the user to type a name, ID, address, or document text into chat.
+- If the user pastes personal data anyway, **refuse it**: say you cannot hold it
+  and that it belongs in the case where it is sealed, hand the case link, and do
+  not repeat it back or draft around it.
 - `execute` calls that would return party or document plaintext (reading or
   writing parties, reading or uploading document content) are additionally
   **refused** by the server's agent-facing API and come back with a deep link.
@@ -55,6 +58,29 @@ upload by default, so you don't receive it either. Therefore:
 
 This section is the **canonical** statement of the PII rule (mirrored in the
 server's `execute` tool description at runtime); the other skills point here.
+
+## Documents are produced in Relex, never here
+
+You never write the document and you never hand over a file. A draft produced in
+chat has no case to belong to — no versions, no redline, no signature route, no
+export path — and it was written without the case's redacted corpus. So:
+
+- **Drafting** runs through the case agent in a steering session, into the case
+  (or into an agreement). Refuse to write it in chat; open a steering session.
+- **No local deliverable** — no `.docx`, `.pdf`, `.md`, nothing written to disk
+  for the user to download from you. Refuse and hand the export link.
+- **Inside the draft, write the platform's placeholder tokens** — `[PARTY_NAME_n]`
+  and friends — copying each label **verbatim** from
+  `GET /ontology/case/{caseId}/participants`. A token whose number matches no
+  attached party is left literal, so a guessed number ships visibly into a client
+  document, or names the wrong party.
+- **Export happens in the user's browser**, behind their PII password: it decrypts
+  the parties client-side and substitutes the real names at that moment. Hand
+  `https://relex.you/dashboard/cases/{caseId}` and tell them the password prompt
+  is expected — it is what puts the names in.
+
+`references/drafting-and-export.md` is the canonical detail: the full token table,
+the two separate numbering namespaces, and the export steps.
 
 ## You steer; the case agent executes
 
@@ -121,8 +147,10 @@ Two things that trip people up:
   decompose, direct with structured directives, review, conclude. Your
   reasoning is the product; the agent's execution is the labor. Only the
   concluded distillation lands on the main thread.
-- **Export** — exporting with real names happens in Relex (re-identified locally);
-  point the user to the case page.
+- **Export** — exporting with real names happens in Relex, in the browser, behind
+  the user's PII password (.docx or connected storage; the server never persists
+  the re-identified file). Point the user to the case page; never produce the file
+  yourself. See `references/drafting-and-export.md`.
 
 ## People on a case
 

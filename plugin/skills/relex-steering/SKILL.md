@@ -16,6 +16,11 @@ it. Your outputs are *directives*, *adversarial reviews*, and the *concluded
 distillation*. Its outputs are the drafts, the grounded research, the case
 state. You bring judgment; it brings labor and platform truth.
 
+That includes the artefact itself: the draft is produced **in the case**, never in
+this chat and never as a file you hand over, and inside it you write the platform's
+numbered placeholder tokens rather than any real detail. See
+`references/drafting-and-export.md` for the token vocabulary and the export path.
+
 ## The session (branch-backed, behind the scenes)
 
 Your first `POST /agent {type:"case_req", caseId, payload:{prompt}}` on an

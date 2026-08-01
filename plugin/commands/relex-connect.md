@@ -14,7 +14,7 @@ is no key to paste.
    execute({ method: "GET", path: "/onboarding/status" })
    ```
 
-   If you're not connected yet, the Relex MCP server (`https://relex.you/api/mcp`)
+   If you're not connected yet, the Relex MCP server (`https://relex.legal/api/mcp`)
    replies with an OAuth challenge and your client opens the user's browser. Tell
    the user: "A browser window will open — sign in to Relex with Google or Apple
    and approve access, then come back." Wait for them to finish.
@@ -25,7 +25,7 @@ is no key to paste.
    workflow?" → run `/relex-setup`.
 
    In the agent Desktop / your MCP client, add the connector under **Settings → Connectors
-   → Add custom connector** with URL `https://relex.you/api/mcp` (OAuth sign-in is
+   → Add custom connector** with URL `https://relex.legal/api/mcp` (OAuth sign-in is
    automatic) — see `docs/connect-the agent-desktop.md`.
 
 ## Fallback — connect with a key (CI / headless / no-OAuth clients)
@@ -36,7 +36,7 @@ If a browser sign-in isn't possible, use a static API key instead:
 2. Add the server with the key as a bearer token:
 
    ```bash
-   the agent mcp add --transport http relex https://relex.you/api/mcp \
+   the agent mcp add --transport http relex https://relex.legal/api/mcp \
      --header "Authorization: Bearer rlx_..."
    ```
 

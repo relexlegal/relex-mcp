@@ -21,7 +21,7 @@ never do it yourself.
 On your first `search`/`execute` call the MCP server returns an OAuth challenge
 and the user's browser opens to sign in to Relex (Google or Apple) and approve —
 **no key to paste**. Tell the user a window will open, then wait. (In the agent
-desktop / your MCP client the connector at `https://relex.you/api/mcp` signs in the
+desktop / your MCP client the connector at `https://relex.legal/api/mcp` signs in the
 same way.)
 
 ## The two tools (plain arguments — no code to write)
@@ -76,7 +76,7 @@ export path — and it was written without the case's redacted corpus. So:
   document, or names the wrong party.
 - **Export happens in the user's browser**, behind their PII password: it decrypts
   the parties client-side and substitutes the real names at that moment. Hand
-  `https://relex.you/dashboard/cases/{caseId}` and tell them the password prompt
+  `https://relex.legal/dashboard/cases/{caseId}` and tell them the password prompt
   is expected — it is what puts the names in.
 
 `references/drafting-and-export.md` is the canonical detail: the full token table,
@@ -120,7 +120,7 @@ Two things that trip people up:
   there is **no propagation delay**, so never tell the user to wait for it to
   "save" or "sync." If it's still `false` right after they say they set it, they
   set it on a **different account**. You can't see their email (it never crosses
-  to you), so tell them to set it while signed into relex.you as the **same
+  to you), so tell them to set it while signed into relex.legal as the **same
   account they used to connect the agent**, then re-check once.
 - **A case is never gated** (`canStartCaseNow` is always true): password,
   knowledge, org, and partner protect and enrich the work but none blocks opening
@@ -136,7 +136,7 @@ Two things that trip people up:
   de-identified matter>}}`; relay any eval question it returns and repeat until it
   returns the tier + offer, then read it back via `GET /cases?caseId={caseId}`. On
   `402`/`payRequired`, send the user to
-  `https://relex.you/dashboard/cases/{caseId}` to review the offer and pay — never
+  `https://relex.legal/dashboard/cases/{caseId}` to review the offer and pay — never
   quote prices, never collect card details.
 - **Parties & documents** — the user adds these in Relex, in the browser; point
   them to the case page. You may do the **id-only** attach/detach

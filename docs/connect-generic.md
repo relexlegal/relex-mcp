@@ -6,7 +6,7 @@
 2. Add a new server:
    - Name: `relex`
    - Type: HTTP / URL
-   - URL: `https://relex.you/api/mcp`
+   - URL: `https://relex.legal/api/mcp`
 3. Enable the server. On first tool use, complete the browser OAuth sign-in.
 
 Or merge into your MCP config file:
@@ -15,7 +15,7 @@ Or merge into your MCP config file:
 {
   "mcpServers": {
     "relex": {
-      "url": "https://relex.you/api/mcp"
+      "url": "https://relex.legal/api/mcp"
     }
   }
 }
@@ -23,14 +23,14 @@ Or merge into your MCP config file:
 
 ## Windsurf / Cline / Continue / other IDE agents
 
-Same pattern: add an HTTP MCP server with URL `https://relex.you/api/mcp`.
+Same pattern: add an HTTP MCP server with URL `https://relex.legal/api/mcp`.
 Prefer OAuth when the host supports it; otherwise use an API key header
 (`Authorization: Bearer rlx_...` from Relex → Settings → API Keys).
 
 ## Custom agent / SDK
 
 Any MCP client that speaks **Streamable HTTP** (or SSE where still supported)
-can attach to `https://relex.you/api/mcp`.
+can attach to `https://relex.legal/api/mcp`.
 
 Expected tools after auth:
 

@@ -3,7 +3,7 @@
 One remote MCP server powers every client:
 
 ```
-https://relex.you/api/mcp
+https://relex.legal/api/mcp
 ```
 
 You do **not** run a local server. Point your MCP host at that URL, sign in
@@ -26,7 +26,7 @@ receiving client PII.
 
 1. Open your client's **Settings → Connectors / MCP / Tools**.
 2. **Add custom connector** / **Add MCP server**.
-3. URL: `https://relex.you/api/mcp`
+3. URL: `https://relex.legal/api/mcp`
 4. Save, then click **Connect** (or run the first tool call).
 5. Browser opens → sign in to Relex with Google or Apple → approve.
 6. Status shows **Connected** with tools `search` and `execute`.
@@ -35,7 +35,7 @@ receiving client PII.
 
 | Role | What you do |
 |------|-------------|
-| **Owner / admin** | Install the connector **once** in the organisation's admin settings (Connectors, Apps, or Plugins). Use URL `https://relex.you/api/mcp`. Optionally publish it to the workspace so all members see it. |
+| **Owner / admin** | Install the connector **once** in the organisation's admin settings (Connectors, Apps, or Plugins). Use URL `https://relex.legal/api/mcp`. Optionally publish it to the workspace so all members see it. |
 | **Member** | You **cannot** add custom connectors yourself. Open **Settings → Connectors** (or Apps). Find **Relex** under available / workspace connectors. Click **Connect** and complete OAuth for **your** Relex account. |
 
 If members don't see Relex:
@@ -54,7 +54,7 @@ Relex account. The admin only makes the connector *available*.
   "mcpServers": {
     "relex": {
       "type": "http",
-      "url": "https://relex.you/api/mcp"
+      "url": "https://relex.legal/api/mcp"
     }
   }
 }
@@ -66,7 +66,7 @@ Variants some clients expect:
 {
   "mcpServers": {
     "relex": {
-      "url": "https://relex.you/api/mcp"
+      "url": "https://relex.legal/api/mcp"
     }
   }
 }
@@ -76,7 +76,7 @@ Variants some clients expect:
 {
   "mcpServers": {
     "relex": {
-      "httpUrl": "https://relex.you/api/mcp"
+      "httpUrl": "https://relex.legal/api/mcp"
     }
   }
 }
@@ -103,7 +103,7 @@ It will:
 
 ```bash
 # Example — Claude Code
-claude mcp add --transport http relex https://relex.you/api/mcp \
+claude mcp add --transport http relex https://relex.legal/api/mcp \
   --header "Authorization: Bearer rlx_..."
 ```
 
@@ -111,7 +111,7 @@ claude mcp add --transport http relex https://relex.you/api/mcp \
 {
   "mcpServers": {
     "relex": {
-      "httpUrl": "https://relex.you/api/mcp",
+      "httpUrl": "https://relex.legal/api/mcp",
       "headers": {
         "Authorization": "Bearer rlx_..."
       }

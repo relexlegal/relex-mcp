@@ -22,7 +22,7 @@ and workflow guidance stay shared; only client packaging and install UX differ.
 ## MCP endpoint (the whole product surface)
 
 ```
-https://relex.you/api/mcp
+https://relex.legal/api/mcp
 ```
 
 Transport: **Streamable HTTP** (MCP). Auth: **OAuth 2.1 + PKCE** (browser
@@ -48,7 +48,7 @@ configuration, skills, and install docs — not a separate server to host.
   "mcpServers": {
     "relex": {
       "type": "http",
-      "url": "https://relex.you/api/mcp"
+      "url": "https://relex.legal/api/mcp"
     }
   }
 }
@@ -60,13 +60,13 @@ Some clients use `url` / `httpUrl` instead of `type`+`url`. Same endpoint.
 
 ```bash
 # Claude Code (HTTP + OAuth)
-claude mcp add --transport http relex https://relex.you/api/mcp
+claude mcp add --transport http relex https://relex.legal/api/mcp
 
 # Gemini CLI
-gemini mcp add --transport http relex https://relex.you/api/mcp
+gemini mcp add --transport http relex https://relex.legal/api/mcp
 
 # API-key fallback (CI / headless)
-claude mcp add --transport http relex https://relex.you/api/mcp \
+claude mcp add --transport http relex https://relex.legal/api/mcp \
   --header "Authorization: Bearer rlx_..."
 ```
 
@@ -86,7 +86,7 @@ Same MCP URL; different UI labels:
 | Gemini Enterprise | **Custom MCP Server** |
 | Cursor / generic | **MCP server** |
 
-Always name it **Relex**, URL `https://relex.you/api/mcp`.
+Always name it **Relex**, URL `https://relex.legal/api/mcp`.
 
 ## Personal vs Team (applies across hosts)
 
@@ -100,9 +100,9 @@ Members on Team plans usually **cannot** add custom entries themselves.
 ## OAuth (generic MCP)
 
 Hosts that support MCP OAuth: unauthenticated call → `401` +
-`WWW-Authenticate: resource_metadata=…` → browser Google/Apple on relex.you →
+`WWW-Authenticate: resource_metadata=…` → browser Google/Apple on relex.legal →
 bearer token on later `search`/`execute`. Full walkthrough:
-[`docs/oauth.md`](docs/oauth.md) and https://relex.you/docs/connectors/mcp
+[`docs/oauth.md`](docs/oauth.md) and https://relex.legal/docs/connectors/mcp
 
 Full install flows: [`docs/install.md`](docs/install.md).
 
@@ -131,11 +131,11 @@ start cases, steer drafting sessions, audit the case ontology, ground citations,
 run intake → e-sign → invoice — while **never** receiving names, national IDs,
 or document plaintext. Those steps deep-link into the browser.
 
-## Docs on relex.you
+## Docs on relex.legal
 
-- [MCP Server overview](https://relex.you/docs/mcp)
-- [Connectors hub](https://relex.you/docs/connectors)
-- [For AI Agents](https://relex.you/for-agents)
+- [MCP Server overview](https://relex.legal/docs/mcp)
+- [Connectors hub](https://relex.legal/docs/connectors)
+- [For AI Agents](https://relex.legal/for-agents)
 
 ## License
 

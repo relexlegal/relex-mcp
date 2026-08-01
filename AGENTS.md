@@ -1,7 +1,7 @@
 # relex-mcp
 
 Generic MCP package for Relex. Skills and workflow guidance are agent-agnostic;
-the live tools are hosted at `https://relex.you/api/mcp`.
+the live tools are hosted at `https://relex.legal/api/mcp`.
 
 ## Non-negotiables
 

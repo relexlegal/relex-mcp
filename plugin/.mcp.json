@@ -2,7 +2,7 @@
   "mcpServers": {
     "relex": {
       "type": "http",
-      "url": "https://relex.you/api/mcp"
+      "url": "https://relex.legal/api/mcp"
     }
   }
 }

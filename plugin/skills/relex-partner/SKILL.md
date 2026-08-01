@@ -17,7 +17,7 @@ step is for. You never enter their credentials, bank details, or rates.
 
 ## The path (point the user to each step)
 
-1. **Register** — `https://relex.you/partners/register` (a short wizard):
+1. **Register** — `https://relex.legal/partners/register` (a short wizard):
    - Profile: name, type (lawyer / notary / specialist), photo, bio, region.
    - Legal details: bar/registration number, regulator, admission region.
    - Proof of standing: upload a licence/registration document.
@@ -28,7 +28,7 @@ step is for. You never enter their credentials, bank details, or rates.
    for the next step.
 3. **Payment onboarding** — the wizard hands off to set up the firm's payment
    account (identity + bank details, entered on the processor's secure pages).
-   Track progress at `https://relex.you/dashboard/settings/partner/status`.
+   Track progress at `https://relex.legal/dashboard/settings/partner/status`.
 4. **Manual Relex verification** — once submitted, a Relex reviewer checks the
    firm's standing (they receive the registration for review). The firm's status
    shows **pending verification** meanwhile. Nothing the user can do but wait.

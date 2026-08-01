@@ -58,7 +58,7 @@ step (PII, documents, payments, and exports happen in the browser, never in chat
      *this* account. The overwhelmingly common cause is the browser being signed
      into a **different account** than the one this the agent is connected to. You
      cannot see their email (it never crosses to you), so tell them plainly:
-     "Make sure you set the password while signed into relex.you as the **same
+     "Make sure you set the password while signed into relex.legal as the **same
      account you used to connect the agent**." Then re-check **once**. Do not invent
      a delay; the flag is instant.
 

@@ -126,7 +126,7 @@ You never hold the file and you never hold the names. The flow, entirely in the
 user's browser:
 
 1. The user opens the document in the case:
-   `https://relex.you/dashboard/cases/{caseId}`
+   `https://relex.legal/dashboard/cases/{caseId}`
 2. They choose the export — **.docx download**, or push to connected storage
    (Google Drive). Signature delivery follows the same model.
 3. Relex prompts for their **PII password** and decrypts the parties **in the

@@ -1,13 +1,13 @@
 {
   "name": "relex-legal",
   "displayName": "Relex Legal (MCP)",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Drive Relex legal cases from any MCP client over a PII-safe API.",
   "author": {
     "name": "Relex",
-    "url": "https://relex.you"
+    "url": "https://relex.legal"
   },
-  "homepage": "https://relex.you/docs/mcp",
+  "homepage": "https://relex.legal/docs/mcp",
   "repository": "https://github.com/relexyou/relex-mcp",
   "license": "AGPL-3.0-or-later",
   "keywords": [

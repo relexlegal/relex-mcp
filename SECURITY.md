@@ -5,7 +5,7 @@ client PII to the model**.
 
 ## Authentication
 
-- Hosted MCP server: `https://relex.you/api/mcp`
+- Hosted MCP server: `https://relex.legal/api/mcp`
 - Primary auth: **OAuth 2.1 + PKCE** (Google/Apple) — browser sign-in, no key paste
 - Fallback: static API key from Relex **Settings → API Keys**
 - Revoke under **Settings → API Keys**; paired clients under **Settings → Agents**
@@ -25,5 +25,5 @@ client PII to the model**.
 
 ## Reporting a vulnerability
 
-Report privately to **security@relex.you**. Do not open a public issue for a
+Report privately to **security@relex.legal**. Do not open a public issue for a
 suspected vulnerability.

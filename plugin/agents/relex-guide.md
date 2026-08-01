@@ -33,7 +33,7 @@ never guess where the user is. (`/relex-setup` runs the same script.)
 user acts — there is **no propagation delay**, so never tell them to "wait for it
 to save/sync." If a flag is still `false` right after they say they did it, they
 acted on a **different account**. You cannot see their email (it never crosses to
-you), so tell them to do the step signed into relex.you as the **same account they
+you), so tell them to do the step signed into relex.legal as the **same account they
 used to connect the agent**, then re-check **once**.
 
 **A case is never gated** (`canStartCaseNow` is always true): if the user just

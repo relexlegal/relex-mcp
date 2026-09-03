@@ -14,10 +14,10 @@ receiving client PII.
 
 | You use… | Package | Start here |
 |----------|---------|------------|
-| Claude Code / Claude desktop / claude.ai | [relex-claude](https://github.com/relexyou/relex-claude) | Plugin marketplace or custom connector |
-| ChatGPT / Codex | [relex-gpt](https://github.com/relexyou/relex-gpt) | Custom connector / MCP app |
-| Grok (xAI API or Grok Build) | [relex-grok](https://github.com/relexyou/relex-grok) | Remote MCP tool |
-| Gemini CLI / Gemini Enterprise | [relex-gemini](https://github.com/relexyou/relex-gemini) | `gemini mcp add` or Enterprise data store |
+| Claude Code / Claude desktop / claude.ai | [relex-claude](https://github.com/relexlegal/relex-claude) | Plugin marketplace or custom connector |
+| ChatGPT / Codex | [relex-gpt](https://github.com/relexlegal/relex-gpt) | Custom connector / MCP app |
+| Grok (xAI API or Grok Build) | [relex-grok](https://github.com/relexlegal/relex-grok) | Remote MCP tool |
+| Gemini CLI / Gemini Enterprise | [relex-gemini](https://github.com/relexlegal/relex-gemini) | `gemini mcp add` or Enterprise data store |
 | Cursor, Windsurf, Cline, Continue, custom | **This repo** | Config below |
 
 ## 2. Personal plan vs Team plan

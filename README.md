@@ -11,10 +11,10 @@ This is the **agent-agnostic** package. Platform-specific plugins live in:
 
 | Agent | Repository |
 |-------|------------|
-| Claude | [relexyou/relex-claude](https://github.com/relexyou/relex-claude) |
-| ChatGPT / Codex | [relexyou/relex-gpt](https://github.com/relexyou/relex-gpt) |
-| Grok (xAI) | [relexyou/relex-grok](https://github.com/relexyou/relex-grok) |
-| Gemini | [relexyou/relex-gemini](https://github.com/relexyou/relex-gemini) |
+| Claude | [relexlegal/relex-claude](https://github.com/relexlegal/relex-claude) |
+| ChatGPT / Codex | [relexlegal/relex-gpt](https://github.com/relexlegal/relex-gpt) |
+| Grok (xAI) | [relexlegal/relex-grok](https://github.com/relexlegal/relex-grok) |
+| Gemini | [relexlegal/relex-gemini](https://github.com/relexlegal/relex-gemini) |
 
 Those repos are **downstream** of the same MCP surface documented here. Skills
 and workflow guidance stay shared; only client packaging and install UX differ.

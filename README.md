@@ -1,24 +1,43 @@
 # Relex × MCP (generic)
 
-Connect **any MCP-compatible agent** to **Relex** legal case management —
-**without ever receiving client PII**.
+**Legal Workspace — One source of truth for any Agent — confidential by design**
 
-> Relex doesn't replace your model. It lets you use it end-to-end by protecting
-> PII and know-how, automating customer service, handling payments, and opening
-> a new client market. See [`docs/positioning.md`](docs/positioning.md).
+Keep legal knowledge, matter context and saved progress in Relex, independently
+of the assistant you use. Authorize another compatible agent to continue from
+the same stored context, without rebuilding the background in another chat.
 
-This is the **agent-agnostic** package. Platform-specific plugins live in:
+## Portable context, with your permission
 
-| Agent | Repository |
-|-------|------------|
-| Claude | [relexlegal/relex-claude](https://github.com/relexlegal/relex-claude) |
-| ChatGPT / Codex | [relexlegal/relex-gpt](https://github.com/relexlegal/relex-gpt) |
-| Grok (xAI) | [relexlegal/relex-grok](https://github.com/relexlegal/relex-grok) |
-| Gemini | [relexlegal/relex-gemini](https://github.com/relexlegal/relex-gemini) |
+1. Create or open the matter in Relex and add information through its protected
+   intake and document workflows.
+2. Connect a supported client to `https://relex.legal/api/mcp` and authorize
+   your own Relex account. Installing a package does not authorize private data.
+3. Ask the agent to read the permitted matter context before working and save
+   its conclusions when finished. A second authorized client can then use that
+   continuing record.
 
-Those repos are **downstream** of the same MCP surface documented here. Skills
-and workflow guidance stay shared; only client packaging and install UX differ.
+Portability covers information saved in Relex, not automatic import of private
+chat histories or a model's internal memory. Client-side identity encryption,
+de-identification and MCP access controls protect the supported workflows;
+de-identified legal facts may still be sensitive. Review what you authorize.
 
+## Workspace, SDK and Marketplace
+
+Use **Legal Workspace** for persistent legal context; the **Legal SDK** for
+building your firm's or legal department's own platform; and the
+**Legal Marketplace** to discover published professional profiles or make an
+AI-first law firm discoverable across specialties.
+
+An agent may help find a professional and prepare a reference-only request.
+The user must review and approve sharing in Relex. Discovery is not engagement,
+a completed conflict check, payment or a guarantee of professional availability.
+
+Client support depends on the host product, plan and administrator settings.
+Gemini CLI support does not imply support in every Gemini web experience.
+Harvey BYOMCP is a customer-admin connection path, not a claim of Harvey
+Connector Library listing or approval. Check the current
+[connector guides](https://relex.legal/docs/connectors) and
+[portable-context guide](https://relex.legal/guides/portable-legal-context).
 ## MCP endpoint (the whole product surface)
 
 ```

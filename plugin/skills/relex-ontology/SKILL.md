@@ -24,6 +24,7 @@ server's PII gate rejects raw identifiers you might try to write — don't.
   objects (parties, obligations, clauses, statutes, events, ISSUES) and the
   verbs binding them (`cites`, `concerns`, `supports`, `contradicts`,
   `undercuts`, `party_to`, `raises`, `established_by`).
+- Optional when explicitly enabled: `?view=digest&jev=1` can attach a top-level `jev` block with advisory suggestions. Jev is disabled by default. Retrieve fuller evidence whenever the task requires it, irrespective of `graph_sufficient`; never replace source checks, permissions or user approval with a suggestion. An absent block or a 503 from `POST /jev/decide` does not block the normal workflow.
 - `execute GET /ontology/firm` (`?scope=org&id=` for an org) — the practice's
   abstract concept graph (doctrines, clause types, argument patterns). No case
   instances, no PII.

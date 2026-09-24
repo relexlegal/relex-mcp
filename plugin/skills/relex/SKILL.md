@@ -37,6 +37,16 @@ execute({ method: "GET",  path: "/onboarding/status" })
 execute({ method: "POST", path: "/cases", body: {} })  // no name, no tier — the eval flow sets both
 ```
 
+
+## Optional decision support with Jev
+
+Jev is disabled by default pending privacy and provider validation. When enabled and available, agent turns may include `response.jev`; ontology reads requested with `?view=digest&jev=1` may include a top-level `jev` block.
+
+- Treat `decision.next` as an advisory suggestion, never authorization, legal verification or user approval. Check the task and sources independently; preserve every permission and human-confirmation requirement.
+- When enabled, request suggestions with `execute({ method: "POST", path: "/jev/decide", body: { preset: "turn", state: { task: "status_check", result: "summary_available" } } })`. Presets: `loop`, `route`, `guardrail`, `ontology`, `knowhow`, `turn`.
+- State and custom questions must contain only de-identified labels: no names, emails, identifiers or document bodies. Jev does not draft or give legal advice.
+- Start with a summary, then retrieve the evidence the task requires, even if a suggestion says the summary is sufficient. If `jev` is absent or the endpoint returns 503, continue the normal workflow and safety checks. No token-saving guarantee is implied.
+
 ## The one rule: personal data never crosses to you
 
 Names, national IDs, and contact details are sealed client-side with a key

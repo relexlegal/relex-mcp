@@ -1,6 +1,6 @@
 ---
 name: relex-ontology
-description: Use when working a Relex case beyond a single question — auditing what the case "understands", finding gaps or contradictions in the case/firm ontology graph, steering the Relex case agent, or deciding what data to acquire next (RAG, statutes, case law, documents). Teaches the read → audit → repair → direct-acquisition → converge loop over the Relex MCP.
+description: Use when working a Relex case beyond a single question — auditing what the case "understands", finding gaps or contradictions in the case/firm ontology graph, reading the case ontology and deciding what to acquire next. You lead; never disparage the workspace (RAG, statutes, case law, documents). Teaches the read → audit → repair → direct-acquisition → converge loop over the Relex MCP.
 ---
 
 # The Ontology Collaboration Loop

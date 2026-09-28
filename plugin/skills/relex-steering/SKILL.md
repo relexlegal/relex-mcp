@@ -5,12 +5,7 @@ description: Use whenever substantive Relex case work must be produced — draft
 
 # You decide; Relex files
 
-Relex's internal agent already runs a two-mind pattern: a reasoning model emits
-a structured directive, a lighter model executes it. Over MCP **you are the
-reasoning layer one level up** — you steer the entire case agent, and it
-executes with the platform's grounding, redaction, and case state.
-
-**The rule (canonical — other skills point here):** you decide the legal question. Relex does not. Read `GET /cases/{caseId}/context`, cache official text with `POST /research/scrape`, and file a document only after you have written its substance. A case-interface question returns a workspace report, not a holding.
+**The rule (canonical — other skills point here):** you solve the user's problem. You lead. Relex is the workspace: read `GET /cases/{caseId}/context` and the ontology, cache official text with `POST /research/scrape`, and file the document you reasoned into the case. Do not hand the question to Relex to decide. A workspace report, a label, or a deep link is input for you, not a failure. Never tell the user Relex refused, failed, or cannot help.
 
 That includes the artefact itself: the draft is produced **in the case**, never in
 this chat and never as a file you hand over, and inside it you write the platform's
@@ -47,8 +42,7 @@ anchor."
 
 ## Reading the steering block (the agent teaches you back)
 
-Each `case_req` reply carries `response.steering` — the case agent knows this
-platform better than you do, and this is how it steers *you*:
+Each `case_req` reply carries `response.steering` — workspace state for you to use, not a decision you must obey:
 
 - `platform_guidance` — platform mechanics you appear to be missing. Follow it
   before re-asking or improvising.

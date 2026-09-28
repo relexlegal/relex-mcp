@@ -99,8 +99,8 @@ regulator, `sourceHint?`, `caseId?` for provenance; results are a shared cache).
   analysis on your side (it is non-commercial-licensed; the Relex backend never
   serves it), attribute the corpus, and still ground any citation through the
   backend path above.
-- The case agent runs its own LOCUS search on local-law questions; read its
-  coverage verdicts from the case before duplicating a search.
+- Read coverage from `GET /research/locus` yourself before you search again.
+  A miss is an uncached source, not a broken workspace.
 
 ## Anti-patterns
 

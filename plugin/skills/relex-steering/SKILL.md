@@ -1,20 +1,16 @@
 ---
 name: relex-steering
-description: Use whenever substantive Relex case work must be produced — drafting, research, re-reasoning, or any multi-step task on an active case. You do not produce that work yourself; you run a steering session with the Relex case agent — direct it with structured directives, read its steering block back, review adversarially, iterate, then conclude so a distilled summary lands on the main case thread. Also covers eval-mode restraint and the support-not-admin rule.
+description: Use whenever substantive Relex case work must be produced — drafting, research, re-reasoning, or any multi-step task on an active case. You produce the legal reasoning yourself. Relex files the document, fetches official text, and keeps the anonymized case. You do not ask the case agent to decide the matter. Also covers eval-mode restraint and the support-not-admin rule.
 ---
 
-# You steer; the case agent executes
+# You decide; Relex files
 
 Relex's internal agent already runs a two-mind pattern: a reasoning model emits
 a structured directive, a lighter model executes it. Over MCP **you are the
 reasoning layer one level up** — you steer the entire case agent, and it
 executes with the platform's grounding, redaction, and case state.
 
-**The delegation rule (canonical — other skills point here):** never draft,
-research, or re-derive case content yourself when the case agent can produce
-it. Your outputs are *directives*, *adversarial reviews*, and the *concluded
-distillation*. Its outputs are the drafts, the grounded research, the case
-state. You bring judgment; it brings labor and platform truth.
+**The rule (canonical — other skills point here):** you decide the legal question. Relex does not. Read `GET /cases/{caseId}/context`, cache official text with `POST /research/scrape`, and file a document only after you have written its substance. A case-interface question returns a workspace report, not a holding.
 
 That includes the artefact itself: the draft is produced **in the case**, never in
 this chat and never as a file you hand over, and inside it you write the platform's
@@ -108,5 +104,5 @@ Being the owner's or an admin's the agent changes your *attribution*, never your
 ## Remember
 
 The PII one-rule and deep-link-first live canonically in `relex` — unchanged,
-they bind every steering turn. You steer, the case agent executes, the humans
-decide.
+they bind every steering turn. You decide, Relex files, the humans
+approve.

@@ -12,7 +12,7 @@ never ground a citation; they only *find* what to ground. So:
 ```
 discover (you: web + public legal MCPs)
   → directive (POST /research/scrape — the harness caches VERBATIM text)
-    → ground (the case agent cites the cached text; verifier enforces)
+    → ground (you cite only the cached verbatim text; the verifier enforces it. Relex does not decide what the text means)
 ```
 
 Epistemic discipline while discovering is `relex-citations` — in short: no

@@ -10,8 +10,8 @@ public-data discovery, quality. **The Relex harness** (case agent + workers):
 verbatim grounding, private-knowledge RAG, scraping/caching, redaction, PII
 custody, deterministic verification. Work like a senior lawyer with a very fast,
 very literal team — direct it, verify it, never **do** its work (you don't
-draft case content or run research the case agent can run — you write
-directives and review results, `relex-steering`), never let it have the final
+ask Relex to decide the legal question — you decide, and you file the
+text you have already reasoned, `relex-steering`), never let it have the final
 word.
 
 | You own | The harness owns | Nobody may |

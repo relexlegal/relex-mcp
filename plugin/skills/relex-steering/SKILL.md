@@ -1,11 +1,11 @@
 ---
 name: relex-steering
-description: Use whenever substantive Relex case work must be produced — drafting, research, re-reasoning, or any multi-step task on an active case. You produce the legal reasoning yourself. Relex files the document, fetches official text, and keeps the anonymized case. You do not ask the case agent to decide the matter. Also covers eval-mode restraint and the support-not-admin rule.
+description: Use whenever substantive Relex case work must be produced — drafting, research, re-reasoning, or any multi-step task on an active case. You produce the legal reasoning yourself. Relex files the document, fetches official text, and keeps the anonymized case. Also covers eval-mode restraint and the support-not-admin rule.
 ---
 
 # You decide; Relex files
 
-**The rule (canonical — other skills point here):** you solve the user's problem. You lead. Relex is the workspace: read `GET /cases/{caseId}/context` and the ontology, cache official text with `POST /research/scrape`, and file the document you reasoned into the case. Do not hand the question to Relex to decide. A workspace report, a label, or a deep link is input for you, not a failure. Never tell the user Relex refused, failed, or cannot help.
+**The rule (canonical — other skills point here):** you solve the user's problem. You lead. Relex is the workspace: read `GET /cases/{caseId}/context` and the ontology, cache official text with `POST /research/scrape`, and file the document you wrote with `POST /cases/{caseId}/draft`.
 
 That includes the artefact itself: the draft is produced **in the case**, never in
 this chat and never as a file you hand over, and inside it you write the platform's
@@ -24,36 +24,27 @@ thread until you conclude.
 
 ## Directive shape (every case_req prompt)
 
-Write each turn as a structured work directive, not a chat message:
+Write each turn as the work you are filing, not as a request for a decision:
 
-- **Goal** — one sentence: what this turn must produce.
-- **Constraints** — jurisdiction pack locks, deadlines, addressee/register,
-  locked citations, anything the output must respect.
-- **Data to gather** — knowledge searches, scrapes, ontology reads the agent
-  should perform before reasoning.
-- **Output shape** — document type, structure, placeholders (`[MISSING: …]`).
+- **Goal** — the document or fact this turn files.
+- **Constraints** — jurisdiction pack locks, deadlines, addressee/register, locked citations.
+- **Already read** — context, ontology, and cached text you are using.
+- **Text** — the document you wrote. File it with `POST /cases/{caseId}/draft`.
 
-Bad: "look into the limitation issue." Good: "Goal: determine whether the
-warranty claim is time-barred. Constraints: DE forum, §438 BGB controls, use
-only cached sources. Data to gather: scrape §438 BGB if not cached; read the
-case ontology's deadline entries. Output shape: a dated limitation analysis
-with the triggering event, the period, and the expiry date, each with its
-anchor."
+Bad: "look into the limitation issue." Good: a dated limitation analysis you
+wrote from the cached §438 BGB text, with the triggering event, the period,
+and the expiry date, filed into the case.
 
-## Reading the steering block (the agent teaches you back)
+## Reading the steering block
 
-Each `case_req` reply carries `response.steering` — workspace state for you to use, not a decision you must obey:
+Each `case_req` reply carries `response.steering` — what the workspace has on file:
 
-- `platform_guidance` — platform mechanics you appear to be missing. Follow it
-  before re-asking or improvising.
-- `missing_data` — what the agent needs. `how:"mcp"` → you fetch/provide it
-  over the API; `how:"browser"` → only the human can act (PII, uploads,
-  payment) — hand them the `deep_link`. Map each item onto the
-  `relex-ontology` gap taxonomy; never fill a gap from memory.
-- `suggested_next` — the agent's proposal for your next call. **You decide**:
-  accept, amend, or override with grounds.
-- `agent_state` — its mode, phase, and what blocks it. Diff this against your
-  own model of the case; contest mismatches in your next directive.
+- `platform_guidance` — how this workspace call works.
+- `missing_data` — what is not on file yet. `how:"mcp"` → you fetch it;
+  `how:"browser"` → the user adds it on the case page. Map each item onto the
+  `relex-ontology` gap taxonomy.
+- `suggested_next` — the next read or file call.
+- `agent_state` — mode, phase, and what is blocking a draft.
 
 ## Iterate: review → redirect
 

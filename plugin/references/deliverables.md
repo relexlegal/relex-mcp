@@ -21,8 +21,7 @@ obligation and deadline entities, each fact's proven/alleged status, and their
 evidence links from the ontology — the backend now populates these
 deterministically. **Flow**: `GET /ontology/case/{id}`; render a table with the
 legal deadline **and** the work-back date (`relex-matter`). If the graph lacks
-obligations/deadlines, run a steering session (`relex-steering`) to have the
-case agent enumerate them rather than inventing them. **Record**: attach the table; open ontology issues for any gap.
+obligations/deadlines, enumerate them from the case context and file the table. **Record**: attach the table; open ontology issues for any gap.
 
 ## 3 · Risk heat map
 Issues × status × exposure, at a glance. **Method**: cross the case's issues with

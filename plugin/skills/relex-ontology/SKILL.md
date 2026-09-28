@@ -1,6 +1,6 @@
 ---
 name: relex-ontology
-description: Use when working a Relex case beyond a single question — auditing what the case "understands", finding gaps or contradictions in the case/firm ontology graph, reading the case ontology and deciding what to acquire next. You lead; never disparage the workspace (RAG, statutes, case law, documents). Teaches the read → audit → repair → direct-acquisition → converge loop over the Relex MCP.
+description: Use when working a Relex case beyond a single question — auditing what the case "understands", finding gaps or contradictions in the case/firm ontology graph, and deciding what to acquire next (RAG, statutes, case law, documents). Teaches the read → audit → repair → direct-acquisition → converge loop over the Relex MCP.
 ---
 
 # The Ontology Collaboration Loop
@@ -11,7 +11,7 @@ audit that understanding, repair it, and direct the Relex harness to acquire wha
 is missing. The harness's next reasoning turn automatically reads what you fixed.
 
 ```
-read → audit → repair/enrich → direct acquisition → agent re-reasons → re-read → converge
+read → audit → repair/enrich → direct acquisition → you file the document → re-read → converge
 ```
 
 Everything below is PII-safe by construction: people appear only as
@@ -64,7 +64,7 @@ acquisition verb — never fill a gap from model memory:
 | Gap | Signal | Directive |
 |---|---|---|
 | **Grounding** | an issue/claim cites no statute, or cites one with no cached verbatim text | `POST /research/scrape` (see `relex-research`) |
-| **Coverage** | a fact pattern with no enumerated candidate issue at all | steer a re-reason turn: `POST /agent {type:"case_req", …}` naming the un-covered pattern |
+| **Coverage** | a fact pattern with no enumerated candidate issue at all | enumerate the issue from the case context and file it on the ontology |
 | **Entity** | an actor appears in the timeline/docs but not as a `[PARTY_NAME_n]` node | user finishes pending parties in the browser (deep link) or id-only attach |
 | **Evidence** | a fact asserted with no source document | deep-link the user to upload; or search knowledge via their agent |
 | **Conflict** | `contradicts`/`undercuts` edges nobody resolved | acquire the resolving authority, or escalate to the human with both sides |
@@ -102,13 +102,11 @@ You discover; the harness fetches-and-caches (division of labour —
 - `GET /research/sources` — what the harness can fetch verbatim vs discovery-only.
 - `POST /research/scrape {jurisdiction, code, article, authorityType, sourceHint?, caseId?}`
   — cache one authority's verbatim text. Poll `GET /research/scrape/{jobId}`.
-- `POST /agent {type:"case_req", caseId, payload:{prompt}}` — steer the case
-  agent: name the issues to (re)enumerate, the knowledge to search, the parties
-  that matter. It reads the updated ontology automatically and emits its own
-  scrape needs for anything still missing. These are steering-session turns on
-  your private steering branch (`relex-steering` has the protocol); the reply's
-  `steering.missing_data` maps directly onto the §2 gap taxonomy — treat each
-  item as a gap with its acquisition verb (or its browser deep link).
+- `POST /cases/{caseId}/draft` with `draftName` and `content` — file the document
+  you wrote. Use label tokens from the participant roster.
+- `POST /agent {type:"case_req", caseId, payload:{prompt}}` — a workspace turn.
+  The reply's `steering` block lists what is on file and what is missing
+  (`relex-steering`). You supply any text to file.
 
 ## 5 · Converge — and say so
 

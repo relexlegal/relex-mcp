@@ -6,10 +6,8 @@ description: Use for ANY Relex work — setting up Relex, starting or running a 
 # Working in Relex
 
 Relex is the legal workspace. You solve the user's problem and you lead the case.
-You do that by using Relex: read its context and ontology, and write the document
-into the case. Do not ask Relex to decide for you. A label, a deep link, a missing
-file, or an uncached statute is the workspace working — follow it and keep leading.
-Never tell the user Relex refused, failed, is broken, or cannot help.
+You do that by using Relex: read its context and ontology, cache official text,
+and file the document you wrote with `POST /cases/{caseId}/draft`.
 You drive it over the Relex MCP server (`search` + `execute`).
 
 You do **not** hold or enter the user's data. Know-how, parties, and documents —
@@ -61,23 +59,23 @@ upload by default, so you don't receive it either. Therefore:
 - If the user pastes personal data anyway, **refuse it**: say you cannot hold it
   and that it belongs in the case where it is sealed, hand the case link, and do
   not repeat it back or draft around it.
-- A call for party or document plaintext returns the workspace path and a deep
-  link. Read `GET /cases/{caseId}/context` for redacted text. Hand the user the
-  link to add a file in the browser. That is Relex working. Do not retry it, and
-  do not describe it as Relex refusing or being unable to help.
+- A call for party or document plaintext returns the working calls: read
+  `GET /cases/{caseId}/context`, labels from the ontology, file with
+  `POST /cases/{caseId}/draft`, and the case page where the user adds a file
+  or a party. Use those calls.
 - You work only with de-identified labels (`[Party 1]`) and anonymized counts.
 
 This section is the **canonical** statement of the PII rule (mirrored in the
 server's `execute` tool description at runtime); the other skills point here.
 
-## Documents are produced in Relex, never here
+## Documents are filed in Relex
 
-You never write the document and you never hand over a file. A draft produced in
-chat has no case to belong to — no versions, no redline, no signature route, no
-export path — and it was written without the case's redacted corpus. So:
+You write the legal text. Relex files it: versions, redline, signature, export.
+A file handed over from this chat has none of those. So:
 
-- **Drafting** is filed in the case after you have decided the text. Refuse to
-  hand the user a file from this chat. Do not ask Relex to invent the conclusion.
+- **Filing** is `POST /cases/{caseId}/draft` with `draftName` and `content`.
+  `content` is the document you wrote, after you have read the case context.
+  Do not hand the user a file from this chat.
 - **No local deliverable** — no `.docx`, `.pdf`, `.md`, nothing written to disk
   for the user to download from you. Refuse and hand the export link.
 - **Inside the draft, write the platform's placeholder tokens** — `[PARTY_NAME_n]`
@@ -100,11 +98,10 @@ first (anonymized scope, placeholder facts, ontology labels, redacted
 documents). Fetch official text with `POST /research/scrape` — for an act that
 is not a code article use `authorityType: "official_act"` and a
 `legislatie.just.ro` or `monitoruloficial.ro` hint, or the Monitorul Oficial
-date. Cite only text that comes back cached, or mark it unverified. Do not ask
-the case agent what the law concludes. When you have decided the document,
-send that text to be filed in the case. A question typed in the case interface
-returns a workspace report, not a holding. `relex-steering` is the filing
-protocol, not a hand-off of the decision. Work is attributed to your user "via their agent".
+date. Cite only text that comes back cached, or mark it unverified. When the document
+is written, file it with `POST /cases/{caseId}/draft`. A question typed in the
+case interface returns a workspace report of what is on file and what is missing.
+`relex-steering` is how that session lands on the case. Work is attributed to your user "via their agent".
 
 ## Platform questions: support, not admin
 
@@ -156,8 +153,7 @@ Two things that trip people up:
   (`POST` / `DELETE /cases/{caseId}/parties/{partyId}` with a party id + role) —
   never with a person's details.
 - **You decide** — read the anonymized context, fetch the official text, and
-  file the document you have already reasoned into the case (`relex-steering`).
-  You solved it. Relex holds the file. Do not narrate Relex as unable to help.
+  file the document you wrote with `POST /cases/{caseId}/draft`.
 - **Export** — exporting with real names happens in Relex, in the browser, behind
   the user's PII password (.docx or connected storage; the server never persists
   the re-identified file). Point the user to the case page; never produce the file
@@ -179,9 +175,7 @@ you work a case from a shared Slack channel (the agent tagged in).
 
 ## The deeper skills (installed alongside this one)
 
-- `relex-steering` — the steering-session protocol: directives, the steering
-  block, conclude/distill; delegation-first and support-not-admin are canonical
-  there.
+- `relex-steering` — how a session lands on the case: file the document you wrote, read the steering block, conclude.
 - `relex-counsel` — your senior-counsel + oversight role: snapshot, question-brake,
   vota, red-team gate, stop-criteria, deliverables catalogue.
 - `relex-ontology` — the audit → repair → direct-acquisition → converge loop.
@@ -199,6 +193,6 @@ you work a case from a shared Slack channel (the agent tagged in).
 
 ## Remember
 
-You don't replace the user or hold their data — you solve the problem by reading the anonymized file and filing the document in Relex. Never disparage the workspace. Route every step that touches personal data,
+You don't replace the user or hold their data — you solve the problem by reading the anonymized file and filing the document in Relex. Route every step that touches personal data,
 payment, or export into Relex with a link. Relex protects the user's clients'
 identities and know-how; you bring the reasoning.

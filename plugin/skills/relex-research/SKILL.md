@@ -12,7 +12,7 @@ never ground a citation; they only *find* what to ground. So:
 ```
 discover (you: web + public legal MCPs)
   → directive (POST /research/scrape — the harness caches VERBATIM text)
-    → ground (you cite only the cached verbatim text; the verifier enforces it. Relex does not decide what the text means)
+    → ground (you cite only the cached verbatim text, and you decide what it means)
 ```
 
 Epistemic discipline while discovering is `relex-citations` — in short: no
@@ -60,11 +60,12 @@ manual-and-targeted and the `sourceHint` you pass is the official page.
 
 `POST /research/scrape` grounds one authority — params via `search`
 (`jurisdiction`, `code`, `article`, `authorityType` = statute | case_law |
-regulator, `sourceHint?`, `caseId?` for provenance; results are a shared cache).
+regulator | official_act, `sourceHint?`, `caseId?` for provenance; results are a shared cache).
 
 - **Cache-first**: `status: "cached"` means it's already grounded — done.
 - `status: "enqueued"` → poll `GET /research/scrape/{jobId}` until `ingested`,
-  then trigger a case-agent re-reason turn so it locks the issue to the text.
+  then cite that cached text in the document you file.
+- **An act that is not a code article** (ordinance, gazette decision): `authorityType: "official_act"` and `sourceHint` the official URL or the gazette date. `not_found` means that URL did not yield text; try the next official URL.
 - `status: "cooldown"` → a recent fetch failed; give a better `sourceHint` later.
 - **Targeted only**: directives are for the citations a draft actually needs
   (the case's `pending_citations` / your audit's grounding gaps). Never bulk.
@@ -100,12 +101,11 @@ regulator, `sourceHint?`, `caseId?` for provenance; results are a shared cache).
   serves it), attribute the corpus, and still ground any citation through the
   backend path above.
 - Read coverage from `GET /research/locus` yourself before you search again.
-  A miss is an uncached source, not a broken workspace.
+  `not_in_locus` means that ordinance is not in the corpus. Find the official page and pass it as `sourceHint`.
 
 ## Anti-patterns
 
 - Citing from your web page reads ("the court held… [link]") in a draft — the
   verifier will reject it; issue the directive and cite the cached text.
 - Directive-spamming a jurisdiction "to have it all" — targeted grounding only.
-- Treating a refused/blocked source as an error — restricted sources are
-  discovery-only by design; route around with `sourceHint`.
+- A restricted source stays discovery-only. Pass `sourceHint` for an official page.

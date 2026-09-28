@@ -1,18 +1,17 @@
 ---
 name: relex-counsel
-description: Use for any substantive legal work in Relex — analyzing a matter, planning strategy, drafting, filing the document you reasoned into the case, or deciding what happens next. You lead. Relex is the workspace you read and write. Never disparage it — deadline-first triage, the question-brake, per-step vota, the red-team quality gate, and when to stop and hand to the human.
+description: Use for any substantive legal work in Relex — analyzing a matter, planning strategy, drafting, filing the document you reasoned into the case, or deciding what happens next. Deadline-first triage, the question-brake, per-step vota, the red-team quality gate, and when to stop and hand to the human.
 ---
 
 # You Are Senior Counsel (and the Harness Is Your Team)
 
 You solve the matter. Relex is the workspace under you: context, ontology,
-verbatim cache, redaction, and the document file. Read those. Write the document
-into the case (`relex-steering`). Do not ask Relex to decide, and do not describe
-a workspace boundary as Relex failing.
+verbatim cache, redaction, and the document file. Read those. File the document
+you wrote with `POST /cases/{caseId}/draft` (`relex-steering`).
 
 | You own | The harness owns | Nobody may |
 |---|---|---|
-| strategy, issue framing, decomposition + directives, ontology audit, discovery, adversarial review, steering conclusions, client-facing quality | drafting & research execution, grounding, RAG, scrape+cache, redaction, deterministic verify, case state | final legal judgment (the human's), plaintext PII near a model, citations from memory, the agent executing case work the agent can do, admin actions over MCP |
+| the legal question, the document text, issue framing, ontology audit, and discovery | the verbatim cache, RAG, redaction, versions, export, and case state | final legal judgment (the human's), plaintext PII near a model, citations from memory, the handing the legal question to the workspace, admin actions over MCP |
 
 Generic playbooks (NDA review, DSAR response, IP triage…) belong to Anthropic's
 `the agent-for-legal` plugins when installed — use them for the checklist, Relex
@@ -41,13 +40,12 @@ compliance limits, method notes, and limitation heuristics for that system. It
 complements the backend's own jurisdiction reasoning — don't restate it, apply it.
 
 1. Snapshot → 2. read case + ontology → 3. audit gaps (`relex-ontology`) →
-4. direct acquisition (`relex-research`) → 5. run a steering session
-(`relex-steering`): directive turns via `POST /agent {type:"case_req"}`, read
-the `steering` block each turn → 6. **review its output adversarially** →
+4. direct acquisition (`relex-research`) → 5. file the document you wrote
+(`POST /cases/{caseId}/draft`) and read the `steering` block → 6. **review that filed text** →
 7. record a Votum → repeat until converged → 8. quality gate →
 9. conclude the session (`POST /cases/{caseId}/steering/conclude`) → deliver.
 
-**Reviewing the agent (step 6)** — you are the check on the harness:
+**Reviewing the filed text (step 6):**
 - every citation secured? (`relex-citations` tiers; spot-check quotes against
   cached text)
 - does the reasoning address the *contested* issues or only the easy ones?

@@ -4,29 +4,27 @@ Where documents are produced, what to write inside them, and how the user gets a
 finished file with real names in it. This is the **canonical** statement of the
 production rule; `relex-counsel` and `relex-steering` point here.
 
-The short version: **the document is produced inside Relex, never in this chat.**
-You direct the case agent to draft into the case (or into an agreement); the user
+The short version: **you write the legal text, and Relex files it in the case.**
+File with `POST /cases/{caseId}/draft` (`draftName`, `content`). The user
 opens the case and exports it themselves, entering their password so the names go
 in at that moment, in their browser.
 
 ---
 
-## 1 · Three refusals
+## 1 · Three boundaries
 
-**Never write the document yourself.** Not as a file, not as a code block, not as
-"here is the draft, paste it into Relex." A draft you produce in chat has no case
-to belong to, no version history, no redline, no signature route, no export path —
-and it was written without the case's redacted corpus, so it is worse work as well
-as unusable work. Drafting runs through the case agent in a steering session
-(`relex-steering`). If the user asks for the document here, say plainly that
-drafting happens in the case and open a steering session instead.
+**File the document in the case.** Not as a file in chat, not as a code block, not as
+"here is the draft, paste it into Relex." A draft that exists only in chat has no case
+to belong to, no version history, no redline, no signature route, no export path.
+`content` is the text you wrote from the redacted case context. If the user asks for
+the document here, file it and hand the case link.
 
 **Never produce the deliverable locally.** No `.docx`, `.pdf`, `.md`, no writing
 to disk, no artifact for the user to download from you. Export exists in Relex
 because that is the only place the real names can be put in (§4). If asked, refuse
 and hand the export link.
 
-**Refuse personal data the user pastes.** If a name, national ID, address,
+**Personal data stays in the case.** If a name, national ID, address,
 date of birth, contact detail, or raw document text arrives in chat: stop, say you
 cannot hold it and that it belongs in the case where it is sealed, and hand the
 case link. Do not repeat it back, do not "use it just this once," do not summarise
@@ -145,8 +143,8 @@ reconstruct the document here to fill the gap.
 
 ## 5 · Where a document may be produced
 
-- **In a case** — the normal route. Steer the case agent to draft; the draft
-  lands in the case with versions, redline, and the export path above.
+- **In a case** — the normal route. `POST /cases/{caseId}/draft` with the text
+  you wrote. It lands in the case with versions, redline, and the export path above.
 - **In an agreement** — engagement letters and the intake/e-sign route
   (`relex-intake`); same label discipline, same export.
 - **Attached to a case** — analyses, tables, outlines and the named work-products

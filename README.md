@@ -159,3 +159,14 @@ or document plaintext. Those steps deep-link into the browser.
 ## License
 
 AGPL-3.0-or-later — see [LICENSE](LICENSE).
+
+## MCP tools (remote server)
+
+The hosted connector at `https://relex.legal/api/mcp` exposes **eleven** tools:
+`list_matters`, `read_matter_context`, `diagnose_matter_sources`,
+`save_matter_work_product`, `correct_matter_ontology`, `conclude_matter_session`,
+`find_legal_professionals`, `read_legal_professional`, `prepare_professional_request`,
+`search`, and `execute`. Auth is OAuth 2.1 + PKCE; connector scopes are
+`relex.cases.read relex.cases.write relex.draft`.
+
+Generic remote MCP clients: point Streamable HTTP at `https://relex.legal/api/mcp` and complete browser OAuth.

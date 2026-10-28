@@ -48,10 +48,20 @@ Transport: **Streamable HTTP** (MCP). Auth: **OAuth 2.1 + PKCE** (browser
 sign-in with Google/Apple — **no key to paste**). Static API keys work as a
 CI/headless fallback.
 
-Two tools, fixed ~1k-token footprint:
+Twelve tools:
 
 | Tool | Purpose |
 |------|---------|
+| `list_matters` | List up to 20 authorized matter references (caseId + deep link; no names or client identity) (read-only) |
+| `read_matter_context` | Read an authorized matter's saved, redacted context (read-only) |
+| `diagnose_matter_sources` | Per-source readiness, failure code and repair action (read-only) |
+| `read_matter_source` | Read one source's full redacted text in pages (read-only) |
+| `save_matter_work_product` | Save a draft or a new revision of one (revision-checked write) |
+| `correct_matter_ontology` | Apply typed ontology operations with evidence references (revision-checked write) |
+| `conclude_matter_session` | Conclude an open steering session; conclusions are saved to the matter thread (write) |
+| `find_legal_professionals` | Find published, professionally verified Marketplace profiles (read-only) |
+| `read_legal_professional` | Read a published profile and its request availability (read-only) |
+| `prepare_professional_request` | Prepare a request to a professional; returns an approval link, sends and charges nothing |
 | `search` | Discover API endpoints from the OpenAPI surface |
 | `execute` | Call one validated endpoint with the user's auth + PII guard |
 

@@ -86,4 +86,4 @@ the user to paste rows to you.
 
 - `relex-intake` — once live, the end-to-end client intake (agreement → e-sign →
   invoice) and paid guest onboarding.
-- `relex` — connect, the two tools, the one PII rule.
+- `relex` — connect, the connector tools and workflow, the one PII rule.

@@ -20,7 +20,7 @@ How any MCP client authenticates to Relex without a special SDK.
 2. Server returns **401** with:
    ```http
    WWW-Authenticate: Bearer resource_metadata="https://relex.legal/.well-known/oauth-protected-resource",
-     scope="relex.agent relex.cases.read relex.cases.write relex.draft"
+     scope="relex.cases.read relex.cases.write relex.draft"
    ```
 3. Host fetches PRM → discovers authorization server `https://relex.legal`.
 4. Host fetches AS metadata → authorize, token, register endpoints; **PKCE S256** required; public client (`token_endpoint_auth_method: none`).
@@ -28,7 +28,7 @@ How any MCP client authenticates to Relex without a special SDK.
 6. Browser: user signs in with Google/Apple, approves scopes.
 7. Host exchanges `code` + `code_verifier` for access (and refresh) token.
 8. Host calls MCP with `Authorization: Bearer <access_token>`.
-9. Tools: `search`, `read_api`, `execute`.
+9. Tools: the 13 Relex MCP tools (ten matter tools plus `search`, `read_api` and `execute`).
 
 ## Host requirements
 
@@ -45,7 +45,9 @@ No browser; suitable for CI only. Prefer OAuth for humans.
 
 ## Scopes
 
-- `relex.cases.read` / `relex.cases.write` / `relex.draft` / `relex.agent`
+- Default (requested by the 401 challenge): `relex.cases.read`, `relex.cases.write`, `relex.draft`
+- Optional: `relex.agent`, for agent features. The challenge omits it by design;
+  OAuth metadata (`scopes_supported`) and the MCP server card list all four scopes.
 
 Tokens never unlock plaintext PII; those calls return deep links.
 

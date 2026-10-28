@@ -26,14 +26,14 @@ Two sources, both PII-safe:
 - **By email** — mail reaches Relex through a mailbox connector the user
   connects in the browser (`https://relex.legal/settings/connectors`); there is
   no sync endpoint over MCP. Ingested mail lands in private knowledge, redacted
-  on ingest. `execute GET /knowledge` lists sources as METADATA ONLY (filename,
+  on ingest. `read_api /knowledge` lists sources as METADATA ONLY (filename,
   folder, status, page/party counts, dates) — never content. To read the
   substance of a request, run a case turn (`POST /agent {type:"case_req"}`,
   which searches the redacted corpus) or hand the user the knowledge deep link.
 - **By guest link** — the client joined a case via a guest link. Read the roster
   with `GET /ontology/case/{caseId}/participants` (`relex-participants`): the
   client is usually `[GUEST_1]`. Read what they wrote via
-  `execute GET /cases?caseId={caseId}&full=true` (note: caseId is a QUERY param;
+  `read_api({ path: "/cases", query: { caseId, full: true } })` (note: caseId is a QUERY param;
   `full=true` is REQUIRED here — a plain `GET /cases` returns a bounded summary
   without the timeline phases) — their request lives in the case `timeline`
   phases + `notes`.
@@ -53,7 +53,7 @@ the correct "record to the case" path.
 
 ## 4 · Agreement from a template
 
-- `execute GET /templates` (`?organizationId=` for the org) — the practice's
+- `read_api /templates` (`query: { organizationId }` for the org) — the practice's
   reusable engagement/agreement templates (generic role placeholders, no PII).
 - `execute POST /templates/{templateId}/instantiate` `{ caseIds: [caseId] }` —
   creates a draft agreement from the template and links the case (so a guest on

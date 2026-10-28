@@ -35,7 +35,8 @@ can attach to `https://relex.legal/api/mcp`.
 Expected tools after auth:
 
 - `search` — discover endpoints
-- `execute` — call a validated endpoint
+- `read_api` — read one validated endpoint (GET only, read-only)
+- `execute` — create, update or delete via a validated endpoint (POST/PUT/PATCH/DELETE)
 
 OAuth follows MCP / RFC 9728 protected-resource discovery: first unauthorized
 call returns a challenge; the client opens the browser authorize URL; tokens

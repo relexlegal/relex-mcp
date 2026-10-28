@@ -28,7 +28,7 @@ How any MCP client authenticates to Relex without a special SDK.
 6. Browser: user signs in with Google/Apple, approves scopes.
 7. Host exchanges `code` + `code_verifier` for access (and refresh) token.
 8. Host calls MCP with `Authorization: Bearer <access_token>`.
-9. Tools: `search`, `execute`.
+9. Tools: `search`, `read_api`, `execute`.
 
 ## Host requirements
 

@@ -3,7 +3,7 @@
   "name": "legal.relex/relex",
   "title": "Relex Legal",
   "description": "Legal practice management: redacted matters, sources, drafts and verified legal professionals.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "websiteUrl": "https://relex.legal/docs/mcp",
   "repository": {
     "url": "https://github.com/relexlegal/relex-mcp",

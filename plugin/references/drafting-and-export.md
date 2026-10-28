@@ -93,7 +93,7 @@ genuinely unknown, type a placeholder and say so in your Votum.
 
 ## 3 · Get the number right — a wrong one ships into the client's document
 
-Read the roster: `execute GET /ontology/case/{caseId}/participants`. Each sealed
+Read the roster: `read_api /ontology/case/{caseId}/participants`. Each sealed
 party comes back as
 
 ```json

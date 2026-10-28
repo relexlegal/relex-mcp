@@ -48,7 +48,7 @@ Transport: **Streamable HTTP** (MCP). Auth: **OAuth 2.1 + PKCE** (browser
 sign-in with Google/Apple — **no key to paste**). Static API keys work as a
 CI/headless fallback.
 
-Twelve tools:
+Thirteen tools:
 
 | Tool | Purpose |
 |------|---------|
@@ -62,8 +62,9 @@ Twelve tools:
 | `find_legal_professionals` | Find published, professionally verified Marketplace profiles (read-only) |
 | `read_legal_professional` | Read a published profile and its request availability (read-only) |
 | `prepare_professional_request` | Prepare a request to a professional; returns an approval link, sends and charges nothing |
-| `search` | Discover API endpoints from the OpenAPI surface |
-| `execute` | Call one validated endpoint with the user's auth + PII guard |
+| `search` | Discover API endpoints from the OpenAPI surface (read-only) |
+| `read_api` | Read one validated GET endpoint with the user's auth + PII guard (read-only) |
+| `execute` | Create, update or delete through one validated endpoint (POST/PUT/PATCH/DELETE) with the user's auth + PII guard |
 
 The MCP handler lives in the **Relex backend** (`/v1/mcp`). This repo is
 configuration, skills, and install docs — not a separate server to host.
@@ -130,7 +131,7 @@ Members on Team plans usually **cannot** add custom entries themselves.
 
 Hosts that support MCP OAuth: unauthenticated call → `401` +
 `WWW-Authenticate: resource_metadata=…` → browser Google/Apple on relex.legal →
-bearer token on later `search`/`execute`. Full walkthrough:
+bearer token on later `search`/`read_api`/`execute`. Full walkthrough:
 [`docs/oauth.md`](docs/oauth.md) and https://relex.legal/docs/connectors/mcp
 
 Full install flows: [`docs/install.md`](docs/install.md).
@@ -172,11 +173,11 @@ AGPL-3.0-or-later — see [LICENSE](LICENSE).
 
 ## MCP tools (remote server)
 
-The hosted connector at `https://relex.legal/api/mcp` exposes **twelve** tools:
+The hosted connector at `https://relex.legal/api/mcp` exposes **thirteen** tools:
 `list_matters`, `read_matter_context`, `read_matter_source`, `diagnose_matter_sources`,
 `save_matter_work_product`, `correct_matter_ontology`, `conclude_matter_session`,
 `find_legal_professionals`, `read_legal_professional`, `prepare_professional_request`,
-`search`, and `execute`. Auth is OAuth 2.1 + PKCE; connector scopes are
+`search`, `read_api`, and `execute`. Auth is OAuth 2.1 + PKCE; connector scopes are
 `relex.cases.read relex.cases.write relex.draft`.
 
 Generic remote MCP clients: point Streamable HTTP at `https://relex.legal/api/mcp` and complete browser OAuth.

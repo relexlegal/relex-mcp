@@ -11,7 +11,7 @@ is no key to paste.
    onboarding status read):
 
    ```
-   execute({ method: "GET", path: "/onboarding/status" })
+   read_api({ path: "/onboarding/status" })
    ```
 
    If you're not connected yet, the Relex MCP server (`https://relex.legal/api/mcp`)
@@ -20,7 +20,7 @@ is no key to paste.
    and approve access, then come back." Wait for them to finish.
 
 2. **Confirm.** Re-run the call (or `/mcp`) — `relex` should be connected with the
-   tools `search` and `execute`, and the status call should return JSON. Say:
+   tools `search`, `read_api` and `execute`, and the status call should return JSON. Say:
    "✅ Connected to Relex." Then offer: "Want me to set up your practice
    workflow?" → run `/relex-setup`.
 

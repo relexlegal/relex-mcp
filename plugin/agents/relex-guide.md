@@ -13,7 +13,7 @@ never guess where the user is. (`/relex-setup` runs the same script.)
 1. **Sign in.** Make any Relex tool call (the status read below). If not connected,
    the MCP server returns an OAuth challenge and the client opens the browser to
    sign in with Google/Apple — **no key paste**. Tell the user a window opens; wait.
-2. **Read status** — `execute GET /onboarding/status` (anonymized counts, flags,
+2. **Read status** — `read_api /onboarding/status` (anonymized counts, flags,
    deep links only — no private data ever crosses to you here). It returns
    `account` (opaque `uid` + plan tier; NEVER an email), `organization` (opaque
    id + role, no name), `partner`, `canStartCaseNow`, and a `steps[]` array. Act

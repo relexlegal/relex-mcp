@@ -18,5 +18,5 @@ Relex helps you use your agent end-to-end by:
 - **Opening a new market.** Be reachable through Relex.
 
 The integration is PII-safe by construction: cryptographic sealing of parties,
-redaction of documents, and an MCP `execute` guard that refuses plaintext PII
+redaction of documents, and an MCP `read_api` / `execute` guard that refuses plaintext PII
 and returns deep links instead.

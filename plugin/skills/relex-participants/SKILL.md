@@ -26,7 +26,7 @@ labels; the real names live encrypted and are revealed only in the browser.
 Before you draft, advise, or answer "who is …", read the roster:
 
 ```
-execute({ method: "GET", path: "/ontology/case/{caseId}/participants" })
+read_api({ path: "/ontology/case/{caseId}/participants" })
 ```
 
 Returns labels only: `{ parties[], participants[], counts, deepLinks }`, e.g.
@@ -66,7 +66,7 @@ is the one you never make.
 People will. Handle it cleanly:
 
 - **Don't repeat it, store it, or write it back** to Relex — the server refuses
-  any `execute` that would move party PII and returns a deep link (the one PII
+  any `read_api` or `execute` call that would move party PII and returns a deep link (the one PII
   rule, canonical in `relex`; the refusal is the correct path, not an error).
 - Answer in labels: "I've got the client as `[PARTY_NAME_1]` (claimant) — I'll
   keep it labelled here; open the Parties tab to see or edit the real identity."
@@ -84,7 +84,7 @@ In Slack you must know *which* case the channel is about before you touch data:
 3. A channel that spans several matters: bind **per-thread**, and re-confirm when
    the thread changes matter. When in doubt, ask for the case link.
 
-A first `search`/`execute` triggers the OAuth sign-in (the admin who connected
+A first `search`/`read_api`/`execute` triggers the OAuth sign-in (the admin who connected
 the connector); see the main `relex` skill. If a call comes back `401/403`, the
 tagger lacks access to that case — say so; don't try another case.
 

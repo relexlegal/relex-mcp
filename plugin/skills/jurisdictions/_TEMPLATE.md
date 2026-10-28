@@ -50,7 +50,7 @@ in `relex-matter` (canonical); a pack carries it ONLY via this exact heading.
 ## What packs never restate (canonical homes elsewhere)
 Keep a pack to what is jurisdiction-specific. Do NOT restate:
 - **the deadline rule** beyond this heading — canonical in `relex-matter`;
-- **the PII one-rule** — canonical in the `relex` skill + the server `execute`
+- **the PII one-rule** — canonical in the `relex` skill + the server `read_api` / `execute`
   tool description at runtime;
 - **the interop framing** (how Relex layers grounding + PII custody over community
   packs) — canonical in `references/interop.md`; a pack keeps only its own

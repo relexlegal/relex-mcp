@@ -20,7 +20,7 @@ docket numbers, margin numbers or quotes from model memory, ever.
 
 ## Step 1 — know what the harness can fetch
 
-`execute GET /research/sources` — the live registry. `enabled: true` sources
+`read_api /research/sources` — the live registry. `enabled: true` sources
 can be fetched-and-cached by directive. Everything else is **discovery-only**:
 you research it yourself and pass the best official URL as `sourceHint`, or the
 harness falls back to its generic fetch ladder.
@@ -87,7 +87,7 @@ regulator | official_act, `sourceHint?`, `caseId?` for provenance; results are a
 
 ## LOCUS — US local ordinances (two vantage points, one corpus)
 
-- **Grounding path (backend)**: `execute GET /research/locus?state=CA&city=…&query=…`
+- **Grounding path (backend)**: `read_api({ path: "/research/locus", query: { state: "CA", city: …, query: … } })`
   → discovery results with `coverage`: `matched` / `covered_no_match` (broaden
   terms) / `not_in_locus` (fall back to web; NEVER invent an ordinance). Then
   `GET /research/locus?locusId=…` fetches the section's verbatim public-domain

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "legal.relex/relex",
+  "title": "Relex Legal",
+  "description": "Legal practice management: redacted matters, sources, drafts and verified legal professionals.",
+  "version": "0.1.8",
+  "websiteUrl": "https://relex.legal/docs/mcp",
+  "repository": {
+    "url": "https://github.com/relexlegal/relex-mcp",
+    "source": "github"
+  },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/relexlegal/relex-mcp/main/plugin/assets/logo.png",
+      "mimeType": "image/png",
+      "sizes": ["1024x1024"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://relex.legal/api/mcp"
+    }
+  ]
+}

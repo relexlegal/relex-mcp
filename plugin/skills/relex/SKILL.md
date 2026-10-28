@@ -8,11 +8,11 @@ description: Use for ANY Relex work — setting up Relex, starting or running a 
 Relex is the legal workspace. You solve the user's problem and you lead the case.
 You do that by using Relex: read its context and ontology, cache official text,
 and file the document you wrote with `POST /cases/{caseId}/draft`.
-You drive it over the Relex MCP server (`search` + `execute`).
+You drive it over the Relex MCP server (ten matter tools plus `search` + `execute`).
 
 You do **not** hold or enter the user's data. Know-how, parties, and documents —
 anything personal — live in **Relex, in the user's browser**: party data is
-sealed under a password only the user holds, documents are redacted there. When
+sealed under a password only the user holds, documents are redacted by Relex. When
 something must be added, you **point the user into Relex** with a link; you
 never do it yourself.
 
@@ -24,7 +24,55 @@ and the user's browser opens to sign in to Relex (Google or Apple) and approve �
 desktop / your MCP client the connector at `https://relex.legal/api/mcp` signs in the
 same way.)
 
-## The two tools (plain arguments — no code to write)
+## Connector workflow (the method — the server itself only describes its tools)
+
+The Relex MCP server exposes twelve tools: ten matter tools plus `search` and
+`execute`. Its `initialize` instructions and tool descriptions are deliberately
+descriptive; the working method lives here. Prefer the matter tools and fall
+back to `search`/`execute` only for what they do not cover:
+
+1. `list_matters` → pick the `caseId`.
+2. `read_matter_context` → redacted context, label-token parties, documents, and
+   the `workProducts` + `steeringConclusions` saved by earlier sessions on any
+   host. Continue from them rather than redoing them. If
+   `sourceReadiness.hasMore`, continue at `nextSourceOffset`.
+3. `diagnose_matter_sources` → outcome per source. Reason only on ready sources.
+   For each blocker, give the user its `failureMessage` and `deepLink`
+   (`raise_quota`, `retry_processing`, `reprocess_or_replace_source`,
+   `open_in_relex`); repairs happen in Relex. For `textTruncated` sources, page
+   through `read_matter_source` until `hasMoreText=false` before relying on that
+   source. Never ask for original files in chat.
+4. Ground: cite statutes and court decisions only from text cached with
+   `POST /research/scrape` or quoted from a ready source; otherwise write
+   `[UNVERIFIED]` in the same sentence. A prosecution docket (`…/P/…`) is not a
+   court decision. `not_found` from the scraper means try the next official URL.
+5. `save_matter_work_product` → label tokens only, with an `idempotencyKey`. To
+   revise, pass `draftId` + `expectedRevision`. `blocked` lists what to fix;
+   `conflict` means re-read and merge. Read it back.
+6. `correct_matter_ontology` for evidence-backed ontology fixes (`baseRevision`
+   from the ontology read; `conflict` means re-read).
+7. Hand off: saved work products are visible to every host. Call
+   `conclude_matter_session` only for a steering session this client opened;
+   without one, the verified draft is the handoff.
+
+Other tools: `find_legal_professionals` / `read_legal_professional` search the
+verified, published Marketplace; `prepare_professional_request` returns an
+approval link — the client approves in Relex, nothing is sent or charged.
+
+Intake (eval): `POST /cases` with an empty body, then
+`POST /agent {type:"eval_req", caseId, payload:{prompt}}` with de-identified
+facts. On 402, send the user to `https://relex.legal/dashboard/cases/{caseId}`.
+Do not quote prices — the case agent and the partner's own rates set the offer.
+Setup ("set up my practice workflow") starts at `GET /onboarding/status`; hand
+each `deepLink`. A guest invite is redeemed with
+`POST /guest-links/{token}/redeem`, then eval only.
+
+Reading modes: by default documents are read by the **Relex Private Model on
+Relex servers**; browser mode keeps reading on the device; private-server and
+custom modes can send raw pages to the selected reader. Redaction can miss
+identifiers — never promise universal anonymity.
+
+## `search` and `execute` (plain arguments — no code to write)
 
 - `search({ query?, tag?, method? })` → discover endpoints; returns a short list
   of `{ method, path, summary, tags }`.
@@ -52,8 +100,9 @@ Jev is disabled by default pending privacy and provider validation. When enabled
 Names, national IDs, and contact details are sealed client-side with a key
 derived from the user's PII password — the server stores only ciphertext and
 cannot decrypt it under any circumstance; that's a cryptographic fact, not a
-policy you have to trust. Document content is redacted client-side before
-upload by default, so you don't receive it either. Therefore:
+policy you have to trust. By default, documents are read and redacted by the Relex
+Private Model on Relex servers (browser mode keeps reading on the device), and
+you receive only the redacted, label-token form. Therefore:
 
 - **Never** ask the user to type a name, ID, address, or document text into chat.
 - If the user pastes personal data anyway, **refuse it**: say you cannot hold it
@@ -105,8 +154,8 @@ case interface returns a workspace report of what is on file and what is missing
 
 ## Platform questions: support, not admin
 
-Answer platform how-to from `search` results and the agent's
-`platform_guidance` (canonical statement in `relex-steering`). Administrative
+Answer platform how-to from `search` results and the endpoint descriptions
+they return (canonical statement in `relex-steering`). Administrative
 operations — quotas, subscriptions, bans, refunds, user management — are not
 available over MCP at any permission level: refuse and hand the dashboard link.
 

@@ -11,7 +11,7 @@ Relex helps you use your agent end-to-end by:
 
 - **Protecting PII and know-how.** Client names, national IDs, and contacts are
   sealed client-side under a PII password. The server stores only ciphertext.
-  Document content is redacted client-side by default. The agent operates on
+  Document content is read and redacted by the Relex Private Model on Relex servers by default. The agent operates on
   structure and drafting and never receives plaintext PII.
 - **Automating customer service.** Guest links, support agents, case agents.
 - **Handling payments for free.** Billing stays in the browser; no card data in chat.

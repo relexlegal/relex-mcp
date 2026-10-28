@@ -23,13 +23,13 @@ tell the user to switch to (or set up) an organisation.
 
 Two sources, both PII-safe:
 
-- **By email** — `execute POST /users/me/connectors/gmail/sync` pulls recent mail
-  into private knowledge (redacted on ingest; returns counts only). Then
-  `execute GET /knowledge` lists sources as METADATA ONLY (filename, folder,
-  status, page/party counts, dates) — never content. To read the substance of a
-  request, run a case turn (`POST /agent {type:"case_req"}`, which searches the
-  redacted corpus) or hand the user the knowledge deep link. The Gmail connector
-  must be connected in the browser first.
+- **By email** — mail reaches Relex through a mailbox connector the user
+  connects in the browser (`https://relex.legal/settings/connectors`); there is
+  no sync endpoint over MCP. Ingested mail lands in private knowledge, redacted
+  on ingest. `execute GET /knowledge` lists sources as METADATA ONLY (filename,
+  folder, status, page/party counts, dates) — never content. To read the
+  substance of a request, run a case turn (`POST /agent {type:"case_req"}`,
+  which searches the redacted corpus) or hand the user the knowledge deep link.
 - **By guest link** — the client joined a case via a guest link. Read the roster
   with `GET /ontology/case/{caseId}/participants` (`relex-participants`): the
   client is usually `[GUEST_1]`. Read what they wrote via
@@ -124,6 +124,6 @@ handle it. Never quote Relex's own plan prices; invoice amounts are the firm's.
 
 ## Alongside
 
-- `relex` — connect, the two tools, the one PII rule.
+- `relex` — connect, the connector tools and workflow, the one PII rule.
 - `relex-participants` — the roster; the client is usually `[GUEST_1]`.
 - `relex-matter` / `relex-counsel` — the intake snapshot, conflicts, deadlines.

@@ -29,7 +29,7 @@ receiving client PII.
 3. URL: `https://relex.legal/api/mcp`
 4. Save, then click **Connect** (or run the first tool call).
 5. Browser opens → sign in to Relex with Google or Apple → approve.
-6. Status shows **Connected** with tools `search` and `execute`.
+6. Status shows **Connected** with tools `search`, `read_api` and `execute`.
 
 ### Team / Business / Enterprise
 
@@ -126,6 +126,6 @@ Revoke anytime under **Settings → API Keys** or unpair clients under
 ## 6. Security summary
 
 - Client PII is sealed client-side under your PII password; the server stores ciphertext only.
-- `execute` refuses party/document plaintext and returns deep links instead.
+- `read_api` and `execute` refuse party/document plaintext and return deep links instead.
 - The agent works with labels like `[Party 1]` and anonymized counts.
 - See [SECURITY.md](../SECURITY.md).

@@ -17,7 +17,7 @@ step (PII, documents, payments, and exports happen in the browser, never in chat
    Apple and approve access — **no key paste**. Tell the user: "A browser window
    will open — sign in to Relex and approve, then come back." Wait for them.
 
-2. **Read progress** with `execute` → `GET /onboarding/status`. It returns only
+2. **Read progress** with `read_api` → `/onboarding/status`. It returns only
    anonymized counts, flags, deep links, and the connected account (never PII):
 
    ```

@@ -8,7 +8,7 @@ description: Use for ANY Relex work — setting up Relex, starting or running a 
 Relex is the legal workspace. You solve the user's problem and you lead the case.
 You do that by using Relex: read its context and ontology, cache official text,
 and file the document you wrote with `POST /cases/{caseId}/draft`.
-You drive it over the Relex MCP server (ten matter tools plus `search` + `execute`).
+You drive it over the Relex MCP server (ten matter tools plus `search`, `read_api` and `execute`).
 
 You do **not** hold or enter the user's data. Know-how, parties, and documents —
 anything personal — live in **Relex, in the user's browser**: party data is
@@ -18,7 +18,7 @@ never do it yourself.
 
 ## Connect (your first tool call signs the user in)
 
-On your first `search`/`execute` call the MCP server returns an OAuth challenge
+On your first `search`/`read_api`/`execute` call the MCP server returns an OAuth challenge
 and the user's browser opens to sign in to Relex (Google or Apple) and approve —
 **no key to paste**. Tell the user a window will open, then wait. (In the agent
 desktop / your MCP client the connector at `https://relex.legal/api/mcp` signs in the
@@ -26,10 +26,10 @@ same way.)
 
 ## Connector workflow (the method — the server itself only describes its tools)
 
-The Relex MCP server exposes twelve tools: ten matter tools plus `search` and
-`execute`. Its `initialize` instructions and tool descriptions are deliberately
+The Relex MCP server exposes thirteen tools: ten matter tools plus `search`,
+`read_api` and `execute`. Its `initialize` instructions and tool descriptions are deliberately
 descriptive; the working method lives here. Prefer the matter tools and fall
-back to `search`/`execute` only for what they do not cover:
+back to `search`/`read_api`/`execute` only for what they do not cover:
 
 1. `list_matters` → pick the `caseId`.
 2. `read_matter_context` → redacted context, label-token parties, documents, and
@@ -72,16 +72,21 @@ Relex servers**; browser mode keeps reading on the device; private-server and
 custom modes can send raw pages to the selected reader. Redaction can miss
 identifiers — never promise universal anonymity.
 
-## `search` and `execute` (plain arguments — no code to write)
+## `search`, `read_api` and `execute` (plain arguments — no code to write)
 
 - `search({ query?, tag?, method? })` → discover endpoints; returns a short list
   of `{ method, path, summary, tags }`.
-- `execute({ method, path, query?, body? })` → call one. `path` is relative to
-  `/v1` and must be plain (no percent-encoding). Returns `{ status, body }`.
+- `read_api({ path, query? })` → read one GET endpoint (read-only). `path` is
+  relative to `/v1` and must be plain (no percent-encoding); query parameters go
+  in `query`, not in `path`. Returns `{ status, body }`.
+- `execute({ method, path, query?, body? })` → create, update or delete through
+  one endpoint (`method` is POST, PUT, PATCH or DELETE). DELETE and other
+  irreversible routes return a Relex deep link where the user confirms the
+  change. Returns `{ status, body }`.
 
 ```
 search({ query: "cases" })
-execute({ method: "GET",  path: "/onboarding/status" })
+read_api({ path: "/onboarding/status" })
 execute({ method: "POST", path: "/cases", body: {} })  // no name, no tier — the eval flow sets both
 ```
 
@@ -115,7 +120,7 @@ you receive only the redacted, label-token form. Therefore:
 - You work only with de-identified labels (`[Party 1]`) and anonymized counts.
 
 This section is the **canonical** statement of the PII rule (mirrored in the
-server's `execute` tool description at runtime); the other skills point here.
+server's `read_api` and `execute` tool descriptions at runtime); the other skills point here.
 
 ## Documents are filed in Relex
 
@@ -162,7 +167,7 @@ available over MCP at any permission level: refuse and hand the dashboard link.
 ## Setting up a new user (status-driven)
 
 When the user is new or asks you to set them up, drive it from
-`execute GET /onboarding/status` — anonymized flags, counts, deep links, and the
+`read_api /onboarding/status` — anonymized flags, counts, deep links, and the
 connected `account` (opaque `uid` + plan tier only, NEVER an email — no private
 data crosses to you on this channel). Act on its `nextStep` **one step at a
 time**, re-reading after the user acts:

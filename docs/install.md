@@ -127,5 +127,5 @@ Revoke anytime under **Settings → API Keys** or unpair clients under
 
 - Client PII is sealed client-side under your PII password; the server stores ciphertext only.
 - `read_api` and `execute` refuse party/document plaintext and return deep links instead.
-- The agent works with labels like `[Party 1]` and anonymized counts.
+- The agent works with labels like `[PARTY_NAME_1]` and anonymized counts.
 - See [SECURITY.md](../SECURITY.md).

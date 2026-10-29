@@ -171,6 +171,19 @@ or document plaintext. Those steps deep-link into the browser.
 
 AGPL-3.0-or-later — see [LICENSE](LICENSE).
 
+## How data moves through Relex
+
+| Step | Where |
+|---|---|
+| Files are uploaded to a matter | Case page in the Relex app (`https://relex.legal/dashboard/cases/{caseId}`, **Attach**) |
+| The assistant reads redacted sources | `read_matter_context`, `read_matter_source` (parties as `[PARTY_NAME_n]` labels) |
+| The assistant saves its work | `save_matter_work_product`: markdown with label tokens, versioned in the matter |
+| The user exports the finished document | Relex app: Word, PDF, Google Drive, signing, email. Labels become the parties' real details in the user's browser, after the user's PII password when parties are sealed |
+
+Identity fields and original files never reach the assistant. The full guide,
+including ontology operations, agents and every endpoint area, is
+[`plugin/references/how-relex-works.md`](plugin/references/how-relex-works.md).
+
 ## MCP tools (remote server)
 
 The hosted connector at `https://relex.legal/api/mcp` exposes **thirteen** tools:

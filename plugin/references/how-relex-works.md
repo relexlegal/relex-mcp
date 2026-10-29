@@ -78,9 +78,9 @@ each, from `read_matter_context` → `parties[].label` (or
 |---|---|---|
 | `list_matters` | Up to 20 matters: `caseId`, `deepLink` | No names or client identity |
 | `read_matter_context` | Parties (labels), participants, documents (redacted text or outcome + repair link), `sourceReadiness`, `workProducts` (draftId, revision), `steeringConclusions`, `upload` | Page with `sourceOffset = nextSourceOffset` while `sourceReadiness.hasMore` |
-| `diagnose_matter_sources` | Per-source `outcome`, `failureCode`, `failureMessage`, `repairAction`, `deepLink`; `upload` | Repairs (`raise_quota`, `retry_processing`, `reprocess_or_replace_source`, `open_in_relex`, `wait_for_processing`) happen in Relex |
+| `diagnose_matter_sources` | Per-source `outcome`, `failureCode`, `failureMessage`, `repairAction`, `deepLink`; `upload` | `repairAction`: `raise_quota`, `retry_processing`, `reprocess_or_replace_source`, `open_in_relex` (done in Relex), `wait_for_processing`, `read_matter_source` (continue over MCP) |
 | `read_matter_source` | Full redacted text of one source, in pages from `offset` | Next page: `textOffset + len(text)` until `hasMoreText=false` |
-| `save_matter_work_product` | `{caseId, draftName, content, draftId?, expectedRevision?, idempotencyKey?, evidenceRefs?}`: saves markdown as a draft; a new version with `draftId` + `expectedRevision` | Returns `outcome, draftId, revision, readback, deepLink, export`; `blocked` (ungrounded citations or personal data, with repair), `conflict` (stale revision); repeating `idempotencyKey` returns the original |
+| `save_matter_work_product` | `{caseId, draftName, content, draftId?, expectedRevision?, idempotencyKey?, evidenceRefs?}`: saves markdown as a draft; a new version with `draftId` + `expectedRevision` | Returns `outcome, draftId, revision, readback, deepLink, export`; `blocked` (ungrounded citations or personal data, with repair), `conflict` (stale or missing `expectedRevision`); repeating `idempotencyKey` returns the original |
 | `correct_matter_ontology` | Typed operations on the matter graph at `baseRevision` | See §4 |
 | `conclude_matter_session` | Ends a steering session this client opened on `POST /agent` (`case_req`); conclusions land in the matter | 404 when no open session |
 | `find_legal_professionals` / `read_legal_professional` | Published, verified Marketplace profiles | Office ≠ admission jurisdiction |
@@ -108,14 +108,14 @@ built from its sources.
 | `upsert_entity` | `id, type, label, properties` |
 | `update_entity` | `id, type?, label?, properties?` |
 | `merge_entities` | `from_id, into_id` |
-| `upsert_relationship` | `source_id, verb, target_id, description, confidence` |
+| `upsert_relationship` | `source_id, verb, target_id`; optional `description`, `confidence` (default 0.8) |
 | `set_issue_status` | `id, status` (`open`, `contested`, `settled`) |
-| `delete_entity`, `delete_relationship` | Returned as `browser_required`; removals are confirmed by the user in Relex |
+| `delete_entity`, `delete_relationship` | Not applied over MCP: a batch containing one is refused whole with `outcome: "browser_required"` and `removalOperationIndexes`; the user confirms removals in Relex at `deepLink`, and the remaining operations can be sent again without them |
 
 - `evidenceRefs: [{ sourceId, provenanceClass }]`, where `provenanceClass` is
   `uploaded_evidence` (default), `official_authority` or `user_confirmation`.
   `agent_work_product` cannot corroborate a claim and is rejected.
-- Outcomes: `revision` + `results[{op, ok, detail}]` on success;
+- Outcomes: `ready` with `revision` + `results[{op, ok, detail}]`;
   `conflict` / `revision_mismatch` when the graph moved on (re-read, re-apply);
   `grounding_blocked` when a claim has no supporting source.
 - `POST /ontology/case/{caseId}/reconcile` rebuilds the deterministic backbone

@@ -34,7 +34,7 @@ Relex is where matter data lives; the assistant reads and writes through it.
   `save_matter_work_product`.
 - **The user exports from Relex.** Word, PDF, Google Drive, signing or email from
   the case page; the browser replaces the labels with the parties' real details
-  after the user's PII password. Hand the `export.deepLink` from the save result;
+  after the user's PII password when parties are sealed. Hand the `export.deepLink` from the save result;
   no `.docx`/`.pdf` is produced here.
 
 The whole platform (tools, labels, ontology operations and provenance, agents and

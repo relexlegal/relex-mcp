@@ -125,8 +125,9 @@ user's browser:
 
 1. The user opens the document in the case:
    `https://relex.legal/dashboard/cases/{caseId}`
-2. They choose the export — **.docx download**, or push to connected storage
-   (Google Drive). Signature delivery follows the same model.
+2. They choose the export — **Word (.docx)** or **PDF** download, push to
+   connected storage (Google Drive), send for signature, or deliver by email /
+   print from the delivery panel. All of them substitute the labels the same way.
 3. Relex prompts for their **PII password** and decrypts the parties **in the
    browser**; the tokens from §2 are replaced with the real names and codes at
    that moment.

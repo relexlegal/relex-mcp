@@ -52,7 +52,7 @@ step (PII, documents, payments, and exports happen in the browser, never in chat
    - `set_pii_password` → "First, let's protect the personal data in your matters.
      Open **{deepLinks.pii}**, set a password, and save your recovery key. It
      encrypts every name, ID, and document in your browser — I only ever see
-     labels like `[Party 1]`." Wait, then re-read.
+     labels like `[PARTY_NAME_1]`." Wait, then re-read.
 
      **If it's still `false` after they say they've set it:** it did not save on
      *this* account. The overwhelmingly common cause is the browser being signed

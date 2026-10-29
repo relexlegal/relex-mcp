@@ -16,6 +16,30 @@ sealed under a password only the user holds, documents are redacted by Relex. Wh
 something must be added, you **point the user into Relex** with a link; you
 never do it yourself.
 
+## Data in, data out: always through Relex
+
+Relex is where matter data lives; the assistant reads and writes through it.
+
+- **Sources come from Relex.** `read_matter_context` and `read_matter_source`
+  return the redacted text of the files on the matter, with parties as labels.
+- **Missing documents are uploaded in Relex.** Hand the user the `upload.deepLink`
+  (the case page, `https://relex.legal/dashboard/cases/{caseId}`), where **Attach**
+  adds documents, folders, photos or audio. Raw documents or personal details
+  pasted into chat are outside the seal; the case page is where they go.
+- **Documents go back into Relex as labelled drafts.** Write with the matter's
+  labels (`[PARTY_NAME_n]`, `[PARTY_ADDRESS_n]`, `[NATIONAL_ID_PLACEHOLDER_n]`,
+  `[COMPANY_REG_PLACEHOLDER_n]`, `[TAX_ID_PLACEHOLDER_n]`,
+  `[BANK_ACCOUNT_PLACEHOLDER_n]`, `[PHONE_PLACEHOLDER_n]`,
+  `[EMAIL_PLACEHOLDER_n]`, with `n` copied from `parties[].label`) and save with
+  `save_matter_work_product`.
+- **The user exports from Relex.** Word, PDF, Google Drive, signing or email from
+  the case page; the browser replaces the labels with the parties' real details
+  after the user's PII password. Hand the `export.deepLink` from the save result;
+  no `.docx`/`.pdf` is produced here.
+
+The whole platform (tools, labels, ontology operations and provenance, agents and
+sessions, grounding, other endpoints) is in `references/how-relex-works.md`.
+
 ## Connect (your first tool call signs the user in)
 
 On your first `search`/`read_api`/`execute` call the MCP server returns an OAuth challenge
@@ -117,7 +141,7 @@ you receive only the redacted, label-token form. Therefore:
   `GET /cases/{caseId}/context`, labels from the ontology, file with
   `POST /cases/{caseId}/draft`, and the case page where the user adds a file
   or a party. Use those calls.
-- You work only with de-identified labels (`[Party 1]`) and anonymized counts.
+- You work only with de-identified labels (`[PARTY_NAME_1]`) and anonymized counts.
 
 This section is the **canonical** statement of the PII rule (mirrored in the
 server's `read_api` and `execute` tool descriptions at runtime); the other skills point here.

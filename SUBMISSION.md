@@ -19,8 +19,8 @@ applied by the tool and return a Relex deep link where the user confirms the
 change.
 
 ## Done in this branch
-- [x] `server.json` (schema 2025-12-11, validated): name `legal.relex/relex`, remote `streamable-http` → `https://relex.legal/api/mcp`, version 0.1.9, icon, repository.
-- [x] README: 13-row tool table matching the server (including `read_api`); SECURITY/positioning: reading default corrected. Plugin 0.1.9.
+- [x] `server.json` (schema 2025-12-11, validated): name `legal.relex/relex`, remote `streamable-http` → `https://relex.legal/api/mcp`, version 0.1.10, icon, repository.
+- [x] README: 13-row tool table matching the server (including `read_api`); SECURITY/positioning: reading default corrected. Plugin 0.1.10.
 
 ## User must do
 - [ ] Install `mcp-publisher` (github.com/modelcontextprotocol/registry releases).

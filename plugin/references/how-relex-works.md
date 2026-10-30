@@ -5,6 +5,42 @@ The whole platform on one page for an assistant connected to the Relex MCP serve
 and how data moves. The details of drafting and export are in
 `drafting-and-export.md`; ontology work is in the `relex-ontology` skill.
 
+## 0 · Relex at a glance
+
+Relex has **three products**:
+
+| Product | What it is | Over this connector |
+|---|---|---|
+| **Legal Workspace** | The user's own workspace: matters, practice know-how, ontology and the work saved by every connected assistant | Yes: the matter tools plus `search` / `read_api` / `execute` |
+| **Legal SDK** | A separate library for building a firm's or legal department's own platform | No: it is not served by the MCP server |
+| **Legal Marketplace** | Published, verified profiles of legal professionals | Yes: `find_legal_professionals`, `read_legal_professional`, `prepare_professional_request` |
+
+The workspace is **portable**: what is saved in Relex (matters, work products,
+steering conclusions, the matter and firm ontologies, know-how) is reachable from
+any authorised MCP client: Claude, ChatGPT, Grok, Gemini, Perplexity or another
+host. Portability covers what is saved in Relex, not the import of chat
+histories from other assistants.
+
+Each workspace area is a `search` tag, so `search({ query, tag: "Know-how" })`
+lists only that area's endpoints. The full table is in §7.
+
+| Area (`tag`) | What the assistant can do |
+|---|---|
+| Matters | List, read and work on matters: context, sources, parties as labels, actions, timeline, attachments |
+| Portable context | Read a matter's context and earlier work; conclude a steering session onto the matter |
+| Ontology | Read and correct the matter graph; read the firm ontology |
+| Know-how | Playbooks, the clause library, templates, knowledge sources, firm ontology |
+| Research | Cache official legal text (`POST /research/scrape`); US local ordinances |
+| Data collection | See which channels feed the workspace (status only; connecting is done in Relex) |
+| Agreements | Drafts, review comments, enforceability advisory, agreements from templates |
+| Intake | Evaluation agent (`POST /agent`), guest-link redemption |
+| E-signature | Send an agreement for signature; read signature status by signer role |
+| Invoices | Create, read and send organisation invoices |
+| Payments | Read payment status on a matter and online-payment readiness |
+| Marketplace | Find and read professionals; prepare a request the user approves |
+| Account | Onboarding status, profile, organisations |
+| eFiling | US court e-filing capability, search and preparation |
+
 ---
 
 ## 1 · The rule: matter data enters and leaves through Relex
@@ -145,23 +181,33 @@ built from its sources.
   source. `save_matter_work_product` blocks ungrounded citations; `[UNVERIFIED]`
   in the same sentence marks one the user has to check.
 
-## 7 · The rest of the platform (via `search` / `read_api` / `execute`)
+## 7 · Every workspace area (via `search` / `read_api` / `execute`)
 
-| Area | Endpoints |
+| Area (`tag`) | Endpoints |
 |---|---|
-| Setup | `GET /onboarding/status` (flags with `deepLink`s) |
-| Client intake | `POST /guest-links/{token}/redeem`, then eval |
-| Drafts | `GET /cases/{caseId}/draft`, `GET /draft/{draftId}`, `POST /cases/{caseId}/draft/{draftId}/enforceability-advisory` |
-| Notes / analyses | `POST /cases/{caseId}/attachments` (markdown, labels only) |
-| Agreements & e-signature | `GET /templates`, `POST /templates/{templateId}/instantiate`, `POST /agreements`, `POST /agreements/{agreementId}/send` (id-only signers) |
-| Invoices (organisation) | `POST /invoices`, `POST /invoices/{invoiceId}/send`, `…/mark-paid`, `…/void` |
-| Actions | `GET /actions/pending`, `GET /cases/{caseId}/actions`, `POST /cases/{caseId}/actions/{actionId}/complete` |
-| Knowledge | `GET /knowledge`, `POST /knowledge/{sourceId}/retry` |
-| Court / notary (US) | `GET /efilings/capability`, `POST /efilings/search`, `POST /efilings/prepare`, `GET /notarizations/capability` |
-| Decisions | `POST /jev/decide` |
+| Matters | `GET /cases`, `POST /cases`, `GET /cases/{caseId}/draft`, `POST /cases/{caseId}/attachments` (markdown notes, labels only), `GET /actions/pending`, `GET /cases/{caseId}/actions`, `POST /cases/{caseId}/actions/{actionId}/complete`, timeline |
+| Portable context | `GET /cases/{caseId}/context`, `POST /cases/{caseId}/steering/conclude`, `GET /ontology/case/{caseId}`, `GET /ontology/firm` |
+| Ontology | `GET /ontology/case/{caseId}`, `POST /cases/{caseId}/ontology/corrections`, `POST /ontology/case/{caseId}/reconcile`, `POST /ontology/case/{caseId}/agent`, firm ontology |
+| Know-how | `GET /playbooks`, `POST /playbooks`, `GET /clauses`, `POST /clauses` (`scope=user` or `org`), `GET /templates`, `GET /knowledge`, `POST /knowledge/{sourceId}/retry` |
+| Research | `POST /research/scrape`, `GET /research/scrape/{jobId}`, `GET /research/sources`, `GET /research/locus` |
+| Data collection | `GET /users/me/connectors`, `GET /organizations/{organizationId}/connectors`: provider, kind and status; mailbox addresses and credentials stay in Relex |
+| Agreements | `GET /draft/{draftId}`, `GET` / `POST /cases/{caseId}/draft/{draftId}/comments` (`visibility`: `internal` or `shared`), `POST /cases/{caseId}/draft/{draftId}/enforceability-advisory`, `POST /templates/{templateId}/instantiate`, `POST /agreements` |
+| Intake | `POST /agent` (`eval_req`, `case_req`), `POST /guest-links/{token}/redeem` |
+| E-signature | `POST /agreements/{agreementId}/send` (id-only signers), `GET /cases/{caseId}/draft/{draftId}/execution` (status per signer role), `GET /notarizations/capability` |
+| Invoices | `GET /invoices`, `GET /invoices/{invoiceId}`, `POST /invoices`, `POST /invoices/{invoiceId}/send`; voiding and marking paid are done in Relex |
+| Payments | `GET /cases/{caseId}/partnerPayments` (status, amount, currency), `GET /partners/connect/status` (readiness flags) |
+| Account | `GET /onboarding/status` (flags with `deepLink`s), `GET /users/me`, organisations |
+| eFiling (US) | `GET /efilings/capability`, `POST /efilings/search`, `POST /efilings/prepare` |
+| Decisions | `POST /jev/decide` (when enabled) |
 
-Not over MCP: deletions, billing, quotas and admin; those live in the Relex
-dashboard.
+Text written into know-how and comments (`POST /clauses`, `POST /playbooks`,
+draft comments) is checked for personal data like a saved work product: write
+label tokens, not real identifiers. A comment's author is the connected Relex
+account.
+
+Not over MCP: deletions, billing and payment writes (charges, refunds, payouts,
+voiding or marking an invoice paid), uploads, connecting channels, quotas and admin; those
+live in the Relex app.
 
 ## 8 · Reading modes and limits
 

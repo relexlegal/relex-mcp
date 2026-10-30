@@ -32,6 +32,27 @@ An agent may help find a professional and prepare a reference-only request.
 The user must review and approve sharing in Relex. Discovery is not engagement,
 a completed conflict check, payment or a guarantee of professional availability.
 
+### What the workspace covers
+
+Each area is a `search` tag on the MCP server; see
+[`how-relex-works.md`](plugin/references/how-relex-works.md) §0 and §7.
+
+| Area | Over MCP |
+|---|---|
+| Matters and portable context | Matter context, redacted sources, saved work products, steering conclusions |
+| Ontology | Matter graph read and evidence-backed corrections; firm ontology |
+| Know-how | Playbooks, clause library, templates, knowledge sources |
+| Research | Cached official legal text |
+| Data collection | Which channels feed the workspace (status only) |
+| Agreements | Drafts, review comments, enforceability advisory, agreements from templates |
+| Intake | Evaluation agent, guest-link redemption |
+| E-signature | Send for signature; signature status by signer role |
+| Invoices | Create, read and send |
+| Payments | Payment status and online-payment readiness (read-only) |
+
+Deletions, billing and payment writes, uploads and connecting channels happen in
+the Relex app.
+
 Client support depends on the host product, plan and administrator settings.
 Gemini CLI support does not imply support in every Gemini web experience.
 Harvey BYOMCP is a customer-admin connection path, not a claim of Harvey

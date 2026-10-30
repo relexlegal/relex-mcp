@@ -1,6 +1,6 @@
 ---
 name: relex
-description: Use for ANY Relex work — setting up Relex, starting or running a case, drafting documents, parties, attachments, payments, collaboration, or client/guest invitations. Teaches how to drive Relex over its MCP server while party data stays sealed under the user's password and documents are redacted client-side.
+description: Use for ANY Relex work — setting up Relex, starting or running a case, drafting documents, parties, attachments, payments, collaboration, or client/guest invitations. Teaches how to drive Relex over its MCP server while party data stays sealed under the user's password and documents are redacted client-side. Also covers the whole portable workspace, including know-how (playbooks, clauses, templates), research, ontology, data-collection status, agreements and comments, intake, e-signature status, invoices and payment status, and the Marketplace.
 ---
 
 # Working in Relex
@@ -39,6 +39,20 @@ Relex is where matter data lives; the assistant reads and writes through it.
 
 The whole platform (tools, labels, ontology operations and provenance, agents and
 sessions, grounding, other endpoints) is in `references/how-relex-works.md`.
+
+
+## The whole workspace, not only matters
+
+Relex has three products: the **Legal Workspace** (this connector), the
+**Legal SDK** (a separate library, not served here) and the **Legal
+Marketplace**. The workspace is portable: matters, work products, steering
+conclusions, ontologies and know-how saved in Relex are reachable from any
+authorised MCP client. Each area is a `search` tag: Matters, Portable context,
+Ontology, Know-how (playbooks, clause library, templates, knowledge), Research,
+Data collection (channel status), Agreements (drafts, comments, advisory),
+Intake, E-signature (status by signer role), Invoices, Payments (status),
+Marketplace, Account, eFiling. Use `search({ query, tag })` to list an area's
+endpoints; `references/how-relex-works.md` §0 and §7 map every area.
 
 ## Connect (your first tool call signs the user in)
 

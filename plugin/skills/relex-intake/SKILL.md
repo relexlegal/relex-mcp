@@ -96,8 +96,9 @@ units (e.g. cents). Then `execute POST /invoices/{invoiceId}/send`:
   Stripe), the response carries a `paymentUrl` — a card-payable hosted invoice,
   emailed to the client.
 - If not, the response carries `needsPartnerRegistration` + a `registerUrl` —
-  hand the user that link to register, or they can collect out of band and you
-  `execute POST /invoices/{invoiceId}/mark-paid`.
+  hand the user that link to register, or they can collect out of band and mark
+  the invoice paid in Relex (Invoices page). Marking paid and voiding are
+  refused over MCP with a link to Relex.
 
 The client's email is resolved server-side from the guest ref — never quote or
 handle it. Never quote Relex's own plan prices; invoice amounts are the firm's.

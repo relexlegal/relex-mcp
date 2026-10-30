@@ -194,7 +194,7 @@ built from its sources.
 | Agreements | `GET /draft/{draftId}`, `GET` / `POST /cases/{caseId}/draft/{draftId}/comments` (`visibility`: `internal` or `shared`), `POST /cases/{caseId}/draft/{draftId}/enforceability-advisory`, `POST /templates/{templateId}/instantiate`, `POST /agreements` |
 | Intake | `POST /agent` (`eval_req`, `case_req`), `POST /guest-links/{token}/redeem` |
 | E-signature | `POST /agreements/{agreementId}/send` (id-only signers), `GET /cases/{caseId}/draft/{draftId}/execution` (status per signer role), `GET /notarizations/capability` |
-| Invoices | `GET /invoices`, `GET /invoices/{invoiceId}`, `POST /invoices`, `POST /invoices/{invoiceId}/send`, `POST /invoices/{invoiceId}/void`; marking paid is done in Relex |
+| Invoices | `GET /invoices`, `GET /invoices/{invoiceId}`, `POST /invoices`, `POST /invoices/{invoiceId}/send`; voiding and marking paid are done in Relex |
 | Payments | `GET /cases/{caseId}/partnerPayments` (status, amount, currency), `GET /partners/connect/status` (readiness flags) |
 | Account | `GET /onboarding/status` (flags with `deepLink`s), `GET /users/me`, organisations |
 | eFiling (US) | `GET /efilings/capability`, `POST /efilings/search`, `POST /efilings/prepare` |
@@ -206,7 +206,7 @@ label tokens, not real identifiers. A comment's author is the connected Relex
 account.
 
 Not over MCP: deletions, billing and payment writes (charges, refunds, payouts,
-marking an invoice paid), uploads, connecting channels, quotas and admin; those
+voiding or marking an invoice paid), uploads, connecting channels, quotas and admin; those
 live in the Relex app.
 
 ## 8 · Reading modes and limits

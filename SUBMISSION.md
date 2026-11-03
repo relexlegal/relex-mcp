@@ -1,5 +1,7 @@
 # Submission — Official MCP Registry (registry.modelcontextprotocol.io)
 
+> **Status 2026-11-03 (Europe/Berlin):** Published to the official MCP Registry as `legal.relex/relex@0.1.11` (status active; HTTP domain auth via https://relex.legal/.well-known/mcp-registry-auth). The checklist below is historical.
+
 > Prepared 2026-10-28; updated the same day for MCP server version 1.1.0
 > (branch `docs/read-api-1.1.0`). Nothing has been submitted. The backend with
 > neutral server instructions, data-only responses and the `read_api` tool is

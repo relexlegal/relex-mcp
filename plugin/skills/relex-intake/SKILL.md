@@ -58,11 +58,22 @@ the correct "record to the case" path.
 - `execute POST /templates/{templateId}/instantiate` `{ caseIds: [caseId] }` —
   creates a draft agreement from the template and links the case (so a guest on
   that case can be a signer). Returns the new agreement.
-- If no suitable template exists, hand the user the dashboard to create one (a
-  template body is authored in the browser, not by you — keep model-authored HTML
-  off the signing path).
+- If no suitable template exists, draft one from the practice know-how
+  (`read_api /clauses` `query: { q }`, playbooks) and the matter ontology, with
+  role placeholders only (`[SIGNER_1_NAME]`, `[<ROLE>_NAME]`), and file it with
+  `execute POST /templates` `{ name, bodyHtml, labels: ["lease", "de"],
+  provenance: { clauseIds, ontologyEntityIds, knowledgeSourceIds, caseIds } }`.
+  The text passes the PII gate and the agreement HTML allowlist.
+- Find templates by label with `read_api /templates` `query: { label: "lease,de" }`
+  (all labels must match). Update one with `execute PUT /templates/{templateId}`
+  and `expectedRevision`; a 409 `revision_mismatch` means read it again and merge.
+- The user reviews a template in Relex (deepLink) before it is used for signing.
 
 ## 5 · E-sign — id-only signers
+
+The send reaches people outside Relex, so the user confirms it in Relex: over MCP
+`POST /agreements/{agreementId}/send` returns `confirmation_required` with a
+`deepLink` to the agreement. Hand the user that link. What the send does there:
 
 `execute POST /agreements/{agreementId}/send` with **`signerRefs` only** — never a
 name, email, or `documentHtml`. Each ref carries params from `search`
@@ -90,7 +101,8 @@ eIDAS). Poll `GET /agreements/{id}` until `status: "executed"`.
 
 `execute POST /invoices` `{ caseId, clientRef: { guestUserId }, items: [{
 description, qty, unitAmount }] }` — amounts are the firm's own figures in minor
-units (e.g. cents). Then `execute POST /invoices/{invoiceId}/send`:
+units (e.g. cents). Then the user sends it from Relex: `execute POST /invoices/{invoiceId}/send` returns
+`confirmation_required` with a `deepLink` to the Invoices page. After the send:
 
 - If the organisation is registered in the **partner program** (which enables
   Stripe), the response carries a `paymentUrl` — a card-payable hosted invoice,

@@ -41,17 +41,18 @@ Each area is a `search` tag on the MCP server; see
 |---|---|
 | Matters and portable context | Matter context, redacted sources, saved work products, steering conclusions |
 | Ontology | Matter graph read and evidence-backed corrections; firm ontology |
-| Know-how | Playbooks, clause library, templates, knowledge sources |
+| Know-how | Playbooks, clause library (search, add, update), labelled templates (create, list by label, update), knowledge sources |
 | Research | Cached official legal text |
 | Data collection | Which channels feed the workspace (status only) |
 | Agreements | Drafts, review comments, enforceability advisory, agreements from templates |
 | Intake | Evaluation agent, guest-link redemption |
-| E-signature | Send for signature; signature status by signer role |
-| Invoices | Create, read and send |
+| E-signature | Prepare for signature (the user confirms the send in Relex); signature status by signer role |
+| Invoices | Create and read (the user confirms the send in Relex) |
 | Payments | Payment status and online-payment readiness (read-only) |
 
-Deletions, billing and payment writes, uploads and connecting channels happen in
-the Relex app.
+Deletions, sends to people outside Relex, billing and payment writes, uploads and
+connecting channels happen in the Relex app. Relex output is legal information, not
+legal advice; a qualified lawyer reviews it before anyone relies on it.
 
 Client support depends on the host product, plan and administrator settings.
 Gemini CLI support does not imply support in every Gemini web experience.
